@@ -1,312 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afshin Hasani | Backend Architect Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afshin Hasani — Senior Backend Engineer (Laravel &amp; Microservices)</title>
+<meta name="description" content="Afshin Hasani is a senior backend engineer building Laravel microservices with domain-driven design — transaction systems, data layers, and APIs that hold under load.">
+<meta name="author" content="Afshin Hasani">
+<meta name="theme-color" content="#07080a">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://iamafshiin.github.io/">
 
-        :root {
-            --bg-primary: #050505;
-            --accent-teal: #2dd4bf;
-        }
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Afshin Hasani">
+<meta property="og:title" content="Afshin Hasani — Senior Backend Engineer">
+<meta property="og:description" content="Laravel microservices, domain-driven design, and data layers that hold under load. Six years across fintech, video, and content platforms.">
+<meta property="og:url" content="https://iamafshiin.github.io/">
+<meta property="og:image" content="https://iamafshiin.github.io/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Afshin Hasani — Senior Backend Engineer">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Afshin Hasani — Senior Backend Engineer">
+<meta name="twitter:description" content="Laravel microservices, domain-driven design, and data layers that hold under load.">
+<meta name="twitter:image" content="https://iamafshiin.github.io/assets/og-image.png">
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-primary);
-            color: #e2e8f0;
-            scroll-behavior: smooth;
-        }
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
-        .mono { font-family: 'JetBrains Mono', monospace; }
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.add('js');</script>
 
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            height: 300px;
-            margin: auto;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px border rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--accent-teal);
-            transform: translateY(-5px);
-        }
-
-        .stroke-text {
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-        }
-
-        .gradient-border {
-            position: relative;
-            border-radius: 24px;
-            background: linear-gradient(to right, #2dd4bf, #3b82f6);
-            padding: 1px;
-        }
-
-        .inner-content {
-            background: var(--bg-primary);
-            border-radius: 23px;
-            height: 100%;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #404040; }
-    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Afshin Hasani",
+  "jobTitle": "Senior Backend Engineer",
+  "url": "https://iamafshiin.github.io/",
+  "email": "mailto:hassaniiafshin@gmail.com",
+  "sameAs": ["https://github.com/Iamafshiin", "https://www.linkedin.com/in/afshin-hasani/", "https://stackoverflow.com/users/18920626"],
+  "knowsAbout": ["Laravel", "Lumen", "PHP", "Microservices", "Domain-driven design", "JWT", "MySQL", "MongoDB", "Redis", "RabbitMQ", "Docker", "Nginx", "Python", "FastAPI", "Reinforcement learning"]
+}
+</script>
 </head>
-<body class="antialiased">
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 px-6 py-8 flex justify-between items-center bg-black/50 backdrop-blur-lg">
-        <div class="text-xl font-extrabold tracking-tighter text-white mono">
-            AFSHIN<span class="text-teal-400">.ARCH</span>
-        </div>
-        <div class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.3em] font-bold text-slate-500">
-            <a href="#projects" class="hover:text-teal-400 transition-colors">Showcase</a>
-            <a href="#stats" class="hover:text-teal-400 transition-colors">Metrics</a>
-            <a href="#experience" class="hover:text-teal-400 transition-colors">Career</a>
-            <a href="mailto:hassaniiafshin@gmail.com" class="text-teal-400">Connect</a>
-        </div>
+<header class="site-head" id="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">AH</span>
+      <span class="brand-text">
+        <strong>Afshin Hasani</strong>
+        <span>Backend architect</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col justify-center px-6 lg:px-24 overflow-hidden">
-        <div class="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-teal-500/10 blur-[150px] rounded-full"></div>
-        
-        <div class="relative z-10 max-w-5xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold mb-8">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-                </span>
-                OPEN FOR SENIOR ROLES
-            </div>
-            
-            <h1 class="text-7xl md:text-[120px] font-black text-white leading-none tracking-tighter mb-8">
-                BACKEND <br/> <span class="stroke-text">ENGINEER</span>
-            </h1>
-            
-            <p class="text-xl md:text-3xl text-slate-400 max-w-2xl leading-relaxed mb-12">
-                Designing <span class="text-white">resilient architectures</span> for high-concurrency systems. Specialist in Laravel microservices and AI-driven logic.
-            </p>
+    <div class="head-actions">
+      <a class="btn btn-ghost btn-sm head-cta" href="mailto:hassaniiafshin@gmail.com">Hire me</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-            <div class="flex flex-wrap gap-6">
-                <a href="#projects" class="px-10 py-5 bg-white text-black rounded-full font-bold text-lg hover:bg-teal-400 transition-all flex items-center gap-3">
-                    View Systems
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </a>
-            </div>
+<main id="main">
+
+  <section class="hero" id="top">
+    <span class="hero-glow" aria-hidden="true"></span>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Open to senior backend roles</p>
+        <h1>Backend systems<br>built to <span class="accent">hold</span>.</h1>
+        <p class="lead">
+          I design and ship Laravel platforms: domain-driven services, clean API contracts,
+          and data layers that survive real traffic.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#work">See selected work</a>
+          <a class="btn btn-ghost" href="mailto:hassaniiafshin@gmail.com">Start a conversation</a>
         </div>
-    </section>
+        <ul class="hero-links">
+          <li><a href="https://github.com/Iamafshiin" rel="me noopener">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/afshin-hasani/" rel="me noopener">LinkedIn</a></li>
+          <li><a href="tel:+989392885779">+98 939 288 5779</a></li>
+          <li><a href="mailto:hassaniiafshin@gmail.com">Email</a></li>
+        </ul>
+      </div>
 
-    <!-- Project Showcase -->
-    <section id="projects" class="py-32 px-6 lg:px-24">
-        <div class="mb-24">
-            <h2 class="text-xs uppercase tracking-[0.5em] text-teal-500 font-bold mb-4">Selected Ecosystems</h2>
-            <h3 class="text-5xl font-black text-white italic">Interactive Projects.</h3>
+      <aside class="blueprint" aria-label="Typical service layout">
+        <div class="blueprint-head">
+          <span>service layout</span>
+          <span class="mono small">ddd · laravel</span>
         </div>
+        <pre class="blueprint-code"><code>app/
+├── Domain/          rules, no framework
+├── Application/     use cases, transactions
+├── Infrastructure/  eloquent, queues, http
+└── Tests/           contract + unit</code></pre>
+        <ul class="blueprint-notes">
+          <li>Framework stays at the edge — the domain stays testable.</li>
+          <li>Each service owns its data, not a shared table.</li>
+          <li>Contracts documented before they are built.</li>
+        </ul>
+      </aside>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="project-grid">
-            <!-- Project 1: Habitomic -->
-            <div class="glass-card group p-2 overflow-hidden">
-                <div class="relative rounded-[20px] overflow-hidden aspect-video bg-slate-900">
-                    <img src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" alt="Habitomic">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black p-8 flex flex-col justify-end">
-                        <span class="text-teal-400 text-xs font-bold mono tracking-widest mb-2">AI PRODUCTIVITY</span>
-                        <h4 class="text-3xl font-bold text-white mb-2">Habitomic</h4>
-                        <p class="text-slate-400 text-sm">AI-boosted gamification engine for self-improvement.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="wrap">
+      <ul class="stats" role="list">
+        <li class="reveal">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">years building backend systems</span>
+        </li>
+        <li class="reveal">
+          <span class="stat-num">7,000+</span>
+          <span class="stat-label">retail partners on systems I built</span>
+        </li>
+        <li class="reveal">
+          <span class="stat-num">50+</span>
+          <span class="stat-label">APIs designed and shipped</span>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-            <!-- Project 2: GSMPay -->
-            <div class="glass-card group p-2 overflow-hidden">
-                <div class="relative rounded-[20px] overflow-hidden aspect-video bg-slate-900">
-                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" alt="GSMPay">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black p-8 flex flex-col justify-end">
-                        <span class="text-teal-400 text-xs font-bold mono tracking-widest mb-2">FINTECH INFRA</span>
-                        <h4 class="text-3xl font-bold text-white mb-2">GSMPay</h4>
-                        <p class="text-slate-400 text-sm">Transaction microservices for 7,000+ retail partners.</p>
-                    </div>
-                </div>
-            </div>
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-num mono">01 — Work</span>
+        <h2 id="work-title">Selected systems</h2>
+        <p class="section-sub">Production products, not side-project demos.</p>
+      </header>
 
-            <!-- Project 3: Dideo -->
-            <div class="glass-card group p-2 overflow-hidden">
-                <div class="relative rounded-[20px] overflow-hidden aspect-video bg-slate-900">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" alt="Dideo">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black p-8 flex flex-col justify-end">
-                        <span class="text-teal-400 text-xs font-bold mono tracking-widest mb-2">VIDEO AGGREGATION</span>
-                        <h4 class="text-3xl font-bold text-white mb-2">Dideo</h4>
-                        <p class="text-slate-400 text-sm">Large-scale content sync for YouTube, TED, and Vimeo.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="work-grid">
 
-            <!-- Project 4: Labs -->
-            <div class="glass-card group p-2 overflow-hidden">
-                <div class="relative rounded-[20px] overflow-hidden aspect-video bg-slate-900">
-                    <img src="https://images.unsplash.com/photo-1614332284683-515b1c7bbd18?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" alt="WP Labs">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black p-8 flex flex-col justify-end">
-                        <span class="text-teal-400 text-xs font-bold mono tracking-widest mb-2">ENGINEERING RESEARCH</span>
-                        <h4 class="text-3xl font-bold text-white mb-2">WordPress Labs</h4>
-                        <p class="text-slate-400 text-sm">Headless CMS research and custom pricing engine APIs.</p>
-                    </div>
-                </div>
-            </div>
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">01</span>
+            <span class="tag">Fintech infrastructure</span>
+          </div>
+          <h3>GSMPay</h3>
+          <p class="work-desc">Transaction microservices behind 7,000+ retail partners, split into bounded services instead of one monolith.</p>
+          <ul class="work-points">
+            <li>Modeled payment rules with domain-driven design so they stay independent of the framework.</li>
+            <li>Owned transaction integrity and MongoDB data layers in high-volume credit flows.</li>
+          </ul>
+          <ul class="chips" role="list">
+            <li>Laravel</li><li>PHP</li><li>MongoDB</li><li>Redis</li><li>REST</li>
+          </ul>
+          <a class="quiet-link" href="mailto:hassaniiafshin@gmail.com?subject=Question%20about%20GSMPay">Ask about this build <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">02</span>
+            <span class="tag">Video aggregation</span>
+          </div>
+          <h3>Dideo</h3>
+          <p class="work-desc">Content ingestion across YouTube, TED, and Vimeo, normalised into a single catalog.</p>
+          <ul class="work-points">
+            <li>Designed the sync flow so heavy external imports never block the public read path.</li>
+            <li>Kept third-party catalogs in step with a queue-based pipeline.</li>
+          </ul>
+          <ul class="chips" role="list">
+            <li>Laravel</li><li>PHP</li><li>MySQL</li><li>Queues</li><li>Redis</li>
+          </ul>
+          <a class="quiet-link" href="mailto:hassaniiafshin@gmail.com?subject=Question%20about%20Dideo">Ask about the pipeline <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">03</span>
+            <span class="tag">AI productivity</span>
+          </div>
+          <h3>Habitomic</h3>
+          <p class="work-desc">A gamification engine for habit tracking, with AI-generated nudges and progress scoring.</p>
+          <ul class="work-points">
+            <li>Shaped streaks, scoring, and reward rules as their own domain, separate from the app shell.</li>
+            <li>Wired an AI layer for personalised prompts without coupling it to core logic.</li>
+          </ul>
+          <ul class="chips" role="list">
+            <li>Laravel</li><li>PHP</li><li>MySQL</li><li>LLM APIs</li>
+          </ul>
+          <a class="quiet-link" href="mailto:hassaniiafshin@gmail.com?subject=Question%20about%20Habitomic">Ask about the engine <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">04</span>
+            <span class="tag">Engineering research</span>
+          </div>
+          <h3>WordPress Labs</h3>
+          <p class="work-desc">Headless CMS experiments plus a custom pricing engine API for content-heavy products.</p>
+          <ul class="work-points">
+            <li>Tested headless WordPress trade-offs for teams that still want the familiar editor.</li>
+            <li>Built pricing rules as an API so plans can change without a deploy.</li>
+          </ul>
+          <ul class="chips" role="list">
+            <li>WordPress</li><li>PHP</li><li>REST</li><li>MySQL</li>
+          </ul>
+          <a class="quiet-link" href="mailto:hassaniiafshin@gmail.com?subject=Question%20about%20WordPress%20Labs">Ask about the research <span aria-hidden="true">→</span></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="code" aria-labelledby="code-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-num mono">02 — Open source</span>
+        <h2 id="code-title">Built in public</h2>
+        <p class="section-sub">Small services and experiments on GitHub — the same patterns as work, without the NDA.</p>
+      </header>
+
+      <div class="work-grid">
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">01</span>
+            <span class="tag">Authentication</span>
+          </div>
+          <h3>auth-microservice</h3>
+          <p class="work-desc">Standalone login and logout service: mobile number and password in, signed JWT out.</p>
+          <ul class="chips" role="list">
+            <li>PHP</li><li>Lumen</li><li>JWT</li><li>Docker</li>
+          </ul>
+          <a class="quiet-link" href="https://github.com/Iamafshiin/auth-microservice" rel="noopener">View repository <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">02</span>
+            <span class="tag">Microservices</span>
+          </div>
+          <h3>message-microservice</h3>
+          <p class="work-desc">Message storage service. It verifies each request against the auth service instead of trusting the caller.</p>
+          <ul class="chips" role="list">
+            <li>PHP</li><li>Lumen</li><li>JWT</li><li>Docker</li>
+          </ul>
+          <a class="quiet-link" href="https://github.com/Iamafshiin/message-microservice" rel="noopener">View repository <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">03</span>
+            <span class="tag">Reinforcement learning</span>
+          </div>
+          <h3>SafeDriveRL</h3>
+          <p class="work-desc">RL agents for autonomous driving: learn safe behaviour first, then detect GPS spoofing and man-in-the-middle attacks.</p>
+          <ul class="chips" role="list">
+            <li>Python</li><li>PPO</li><li>stable-baselines3</li><li>MAPE-K</li>
+          </ul>
+          <a class="quiet-link" href="https://github.com/Iamafshiin/SafeDriveRL" rel="noopener">View repository <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-top">
+            <span class="work-index mono">04</span>
+            <span class="tag">Observability</span>
+          </div>
+          <h3>ram-monitoring-app</h3>
+          <p class="work-desc">FastAPI service that samples RAM usage on a schedule, stores history in SQLite, and serves it over HTTP.</p>
+          <ul class="chips" role="list">
+            <li>Python</li><li>FastAPI</li><li>SQLite</li>
+          </ul>
+          <a class="quiet-link" href="https://github.com/Iamafshiin/ram-monitoring-app" rel="noopener">View repository <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+
+      <p class="code-more">
+        <a class="quiet-link" href="https://github.com/Iamafshiin?tab=repositories" rel="noopener">All repositories on GitHub <span aria-hidden="true">→</span></a>
+        <span class="mono">15 public repos · active since 2019</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="approach" aria-labelledby="approach-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-num mono">03 — Approach</span>
+        <h2 id="approach-title">How I build</h2>
+        <p class="section-sub">Three rules that decide most technical choices.</p>
+      </header>
+
+      <div class="principles">
+        <article class="principle reveal">
+          <span class="principle-num mono">01</span>
+          <h3>Boundaries before frameworks</h3>
+          <p>Business rules live in plain classes with tests. Laravel, queues, and databases are adapters at the edge — so a swap costs a week, not a rewrite.</p>
+        </article>
+        <article class="principle reveal">
+          <span class="principle-num mono">02</span>
+          <h3>Performance is a feature</h3>
+          <p>Every endpoint gets a budget. Indexes, eager loading, and caching are part of the design review, not a fire drill after launch.</p>
+        </article>
+        <article class="principle reveal">
+          <span class="principle-num mono">03</span>
+          <h3>Boring beats clever</h3>
+          <p>Idempotent jobs, explicit contracts, and logs you can actually read at 3 a.m. Predictability is what lets a small team move fast.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="stack" aria-labelledby="stack-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-num mono">04 — Stack</span>
+        <h2 id="stack-title">Tools I reach for</h2>
+        <p class="section-sub">Chosen for reliability over novelty.</p>
+      </header>
+
+      <div class="stack-grid">
+        <div class="stack-card reveal">
+          <h3>Backend</h3>
+          <ul class="chips" role="list">
+            <li>PHP 8</li><li>Laravel</li><li>Lumen</li><li>REST APIs</li><li>JWT auth</li><li>Domain-driven design</li><li>Queue workers</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section id="stats" class="py-32 bg-[#0a0a0a]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-                <div>
-                    <h2 class="text-4xl md:text-6xl font-black text-white mb-8">Data-Driven <br/><span class="text-teal-400">Expertise.</span></h2>
-                    <p class="text-slate-400 text-xl mb-12">I specialize in high-load systems where performance is measured in milliseconds and reliability is absolute.</p>
-                    
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-5xl font-black text-white mb-2">6+</div>
-                            <div class="text-xs uppercase tracking-widest text-slate-500 font-bold">Years Experience</div>
-                        </div>
-                        <div>
-                            <div class="text-5xl font-black text-white mb-2">50+</div>
-                            <div class="text-xs uppercase tracking-widest text-slate-500 font-bold">APIs Built</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-10">
-                    <h4 class="text-sm font-bold mono text-teal-400 mb-6">TECH STACK UTILIZATION</h4>
-                    <div class="chart-container">
-                        <canvas id="techChart"></canvas>
-                    </div>
-                </div>
-            </div>
+        <div class="stack-card reveal">
+          <h3>Data</h3>
+          <ul class="chips" role="list">
+            <li>MySQL</li><li>MongoDB</li><li>Redis</li><li>SQLite</li><li>Query tuning</li><li>Schema design</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Experience Timeline -->
-    <section id="experience" class="py-32 px-6 lg:px-24">
-        <h2 class="text-xs uppercase tracking-[0.5em] text-teal-500 font-bold mb-12">The Journey</h2>
-        
-        <div class="space-y-12">
-            <!-- Job 1 -->
-            <div class="flex flex-col md:flex-row gap-6 md:gap-24 items-start group">
-                <div class="text-slate-500 font-bold mono text-sm pt-1">2024 — PRES</div>
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors">OGSMPay • Senior Backend</h3>
-                    <p class="text-slate-400 mt-4 leading-relaxed max-w-2xl">
-                        Architecting microservices using Laravel and DDD. Responsible for transaction integrity and MongoDB data layers for high-volume credit processing.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Job 2 -->
-            <div class="flex flex-col md:flex-row gap-6 md:gap-24 items-start group">
-                <div class="text-slate-500 font-bold mono text-sm pt-1">2021 — 2023</div>
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors">Changino • Backend Engineer</h3>
-                    <p class="text-slate-400 mt-4 leading-relaxed max-w-2xl">
-                        Managed mission-critical API migrations and data modeling. Focused on SQL performance tuning and high-tempo feature delivery.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Job 3 -->
-            <div class="flex flex-col md:flex-row gap-6 md:gap-24 items-start group">
-                <div class="text-slate-500 font-bold mono text-sm pt-1">2020 — 2021</div>
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors">MihanService • Full Stack</h3>
-                    <p class="text-slate-400 mt-4 leading-relaxed max-w-2xl">
-                        Legacy code modernization and debugging across high-traffic PHP applications.
-                    </p>
-                </div>
-            </div>
+        <div class="stack-card reveal">
+          <h3>Platform</h3>
+          <ul class="chips" role="list">
+            <li>Docker</li><li>RabbitMQ</li><li>Nginx</li><li>Linux</li><li>Git</li><li>CI pipelines</li><li>Python</li><li>FastAPI</li><li>Swagger / OpenAPI</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <footer class="py-32 text-center border-t border-white/5">
-        <h2 class="text-6xl md:text-8xl font-black text-white mb-12 italic tracking-tighter">LET'S CONNECT.</h2>
-        <div class="flex flex-wrap justify-center gap-8 px-6">
-            <a href="mailto:hassaniiafshin@gmail.com" class="text-2xl font-bold hover:text-teal-400 transition-colors">hassaniiafshin@gmail.com</a>
-            <span class="hidden md:inline text-slate-800">|</span>
-            <a href="tel:+989392885779" class="text-2xl font-bold hover:text-teal-400 transition-colors">+98 939 288 5779</a>
-        </div>
-        <div class="mt-32 text-[10px] text-slate-700 uppercase tracking-widest font-bold">
-            © 2024 AFSHIN HASANI • BUILT FOR PERFORMANCE
-        </div>
-    </footer>
+  <section class="section" id="experience" aria-labelledby="experience-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="section-num mono">05 — Experience</span>
+        <h2 id="experience-title">The journey</h2>
+        <p class="section-sub">Six years, three teams, one direction: bigger systems, smaller teams.</p>
+      </header>
 
-    <script>
-        // Tech Stack Chart
-        const ctx = document.getElementById('techChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Laravel', 'Python', 'MySQL', 'MongoDB', 'Docker', 'Redis'],
-                datasets: [{
-                    label: 'Efficiency %',
-                    data: [95, 88, 92, 85, 80, 75],
-                    backgroundColor: '#2dd4bf',
-                    borderRadius: 10,
-                    barThickness: 12
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#4b5563', font: { family: 'JetBrains Mono' } }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        ticks: { color: '#9ca3af', font: { family: 'JetBrains Mono' } }
-                    }
-                }
-            }
-        });
+      <ol class="timeline" role="list">
+        <li class="timeline-item reveal">
+          <div class="timeline-when mono">2024 — Present</div>
+          <div class="timeline-body">
+            <h3>Senior Backend Engineer <span class="at">OGSMPay</span></h3>
+            <ul>
+              <li>Architecting microservices with Laravel and domain-driven design.</li>
+              <li>Responsible for transaction integrity and MongoDB data layers in high-volume credit processing.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="timeline-item reveal">
+          <div class="timeline-when mono">2021 — 2023</div>
+          <div class="timeline-body">
+            <h3>Backend Engineer <span class="at">Changino</span></h3>
+            <ul>
+              <li>Led mission-critical API migrations and data modeling.</li>
+              <li>Focused on SQL performance tuning and fast feature delivery.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="timeline-item reveal">
+          <div class="timeline-when mono">2020 — 2021</div>
+          <div class="timeline-body">
+            <h3>Full Stack Developer <span class="at">MihanService</span></h3>
+            <ul>
+              <li>Modernised legacy PHP code on high-traffic applications.</li>
+              <li>Debugged production issues across the stack.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-        // Simple Fade In Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100');
-                    entry.target.classList.remove('opacity-0');
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <span class="section-num mono">06 — Contact</span>
+      <h2 id="contact-title">Let's keep your systems up.</h2>
+      <p class="section-sub">Open to senior backend roles and focused contracts. I reply within a day.</p>
 
-        document.querySelectorAll('.glass-card, .group').forEach(el => {
-            el.classList.add('opacity-0', 'transition-all', 'duration-1000');
-            el.style.transform = 'translateY(30px)';
-            observer.observe(el);
-        });
-    </script>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:hassaniiafshin@gmail.com">hassaniiafshin@gmail.com</a>
+        <button class="btn btn-ghost" type="button" id="copy-email" data-copy="hassaniiafshin@gmail.com">
+          Copy email
+        </button>
+      </div>
+
+      <ul class="socials" role="list">
+        <li><a href="https://github.com/Iamafshiin" rel="me noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/afshin-hasani/" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://stackoverflow.com/users/18920626" rel="me noopener">Stack Overflow</a></li>
+        <li><a href="tel:+989392885779">+98 939 288 5779</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p>© <span id="year">2026</span> Afshin Hasani</p>
+    <p class="mono small">Hand-written HTML, CSS, and vanilla JS. No frameworks, no trackers.</p>
+    <a class="quiet-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
