@@ -1,7 +1,7 @@
 # Afshin Hasani — portfolio (rebuilt)
 
 New version of <https://iamafshiin.github.io>. Plain HTML, CSS, and vanilla JS.
-No framework, no CDN, no build step — copy the folder into the repo and push.
+No framework, no CDN. The Resume PDF is built in CI from `cv.yaml`.
 
 ## Files
 
@@ -49,17 +49,28 @@ assets/apple-touch-icon.png
 - Added an "Open source" section built from the real public repos: `auth-microservice`, `message-microservice`, `SafeDriveRL`, `ram-monitoring-app`, plus GitHub and Stack Overflow links.
 - Removed "no demos" claims and filler; contact section has a copy-email button.
 
-## Deploy
+## Resume
+
+`cv.yaml` is the Content Source; the `navy/` folder is the RenderCV theme (RenderCV only finds a theme folder next to the YAML).
 
 ```powershell
-# from your local clone of Iamafshiin.github.io
-# copy the files in this folder over the repo root, then:
-git add -A
-git commit -m "Rebuild portfolio: performance, SEO, a11y, content"
-git push
+pip install -r requirements.txt
+$env:PYTHONUTF8 = "1"
+rendercv render cv.yaml
+python checks.py
 ```
 
-GitHub Pages publishes the `main` branch automatically; the site updates in a minute or two.
+`checks.py` fails unless the PDF is exactly 2 pages, `pdftotext -raw`, `pdftotext -layout` and pypdf keep every date with its role, every skill label with its values and every degree with its date, and no phone number is present.
+
+For a phone-bearing copy for direct applications, render locally only:
+
+```powershell
+rendercv render cv.yaml --cv.phone "+98 ..." --output-folder private_output
+```
+
+## Deploy
+
+GitHub Actions (`.github/workflows/pages.yml`) renders the Resume, runs `checks.py` and assembles `_site/` with the site files and `afshin-hasani-resume.pdf`. Pull requests build and check only; pushes to `main` deploy. A failed check leaves the last good deploy live. Repo setting: Pages → Source → GitHub Actions.
 
 ## Personalize before publishing
 
@@ -68,8 +79,6 @@ Search `index.html` for these and replace:
 1. GitHub, LinkedIn, and Stack Overflow are already wired in (hero links, contact links, and the JSON-LD `sameAs`). If you add Telegram or X, put them next to those in both places.
 2. The bullets under each project in `#work` — swap in your real numbers (latency, throughput, migration size). Right now they are rewritten from your existing descriptions, nothing invented.
 3. The three figures in `.stats` (`6+`, `7,000+`, `50+`).
-4. If you add a CV: drop `cv.pdf` in `assets/` and add a ghost button next to "See selected work":
-   `<a class="btn btn-ghost" href="assets/cv.pdf">Download CV</a>`.
 5. `sitemap.xml` — update `<lastmod>` after edits. Regenerate `assets/og-image.png` if your title changes.
 
 ## Local preview
