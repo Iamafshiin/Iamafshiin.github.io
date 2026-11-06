@@ -133,8 +133,8 @@ design:
   section_titles:
     type: with_partial_line
     line_thickness: 1.2pt
-    space_above: 0.35cm
-    space_below: 0.2cm
+    space_above: 0.3cm
+    space_below: 0.3cm
   sections:
     show_time_spans_in: []
     space_between_regular_entries: 0.7em
