@@ -1,0 +1,75 @@
+{% extends "base.html.j2" %}
+{% from "_viz.html.j2" import viz %}
+{% block main %}
+<section class="wrap hero">
+  <div>
+    <p class="tag"><span class="dot"></span>{{ site.hero.tag }}</p>
+    <h1><span data-scr>{{ site.hero.lead }}</span><span class="hl" data-scr>{{ site.hero.highlight }}</span></h1>
+    <p class="sub"><b>{{ site.hero.sub_strong }}</b> {{ site.hero.sub }}</p>
+    <div class="cta">
+      <a class="btn p" href="#work">Read the case studies ↓</a>
+      <a class="btn s" href="{{ site.site.resume_path }}">Download Resume (PDF)</a>
+    </div>
+  </div>
+  <figure class="win" aria-label="Simulated ledger feed">
+    <div class="bar"><i></i><i></i><i></i><span>ledger.log — tail -f</span><em>simulated</em></div>
+    <div class="ledger" id="ledger" data-accounts="{{ site.ledger.accounts | join(',') }}">
+{% for r in ledger %}
+{% if r.kind == "replay" %}
+      <div><span class="id">{{ r.tx }}</span> <span class="rj">REPLAY idem_key={{ r.key }} → 409 rejected</span></div>
+{% elif r.kind == "lock" %}
+      <div><span class="id">{{ r.tx }}</span> <span class="lk">LOCK {{ r.account }} acquired · wait {{ r.wait }}ms</span></div>
+{% else %}
+      <div><span class="id">{{ r.tx }}</span> <span class="dr">DR</span> <span class="acct">{{ r.debit }}</span><span class="am">{{ r.amount | thousands }}</span> <span class="cr">CR</span> <span class="acct">{{ r.credit }}</span><span class="ok">✓</span></div>
+{% endif %}
+{% endfor %}
+    </div>
+    <div class="ft">
+      <div>Σ debits<b id="sdr" data-v="{{ ledger_total }}">{{ ledger_total | thousands }}</b></div>
+      <div>Σ credits<b id="scr">{{ ledger_total | thousands }}</b></div>
+      <div>invariant<b class="ok" id="inv" data-r="{{ replays }}">balanced ✓ · {{ replays }} replays</b></div>
+    </div>
+  </figure>
+</section>
+
+<section class="wrap sec" id="work" aria-labelledby="work-h">
+  <h2 id="work-h">01 — work</h2>
+  <div class="cards">
+{% for p in site.proof_points %}
+    <a class="card" href="/case-studies/{{ p.slug }}/">
+      <span class="k">{{ p.kicker }}</span>
+      {{ viz(p.viz) }}
+      <h3>{{ p.title }}</h3>
+      <span class="num">{{ p.fact }}</span>
+      <span class="role">{{ p.role }}</span>
+      <span class="go">read case study <span aria-hidden="true">→</span></span>
+    </a>
+{% endfor %}
+  </div>
+</section>
+
+<section class="wrap sec" id="experience" aria-labelledby="exp-h">
+  <h2 id="exp-h">02 — git log --career</h2>
+  <ol class="gitlog">
+{% for c in log %}
+    <li><span class="g" aria-hidden="true">●</span><span class="h">{{ c.hash }}</span><time>{{ c.date }}</time><span class="msg"><b>{{ c.company }}</b> — {{ c.position }}{% if c.current %}<span class="head">HEAD → present</span>{% endif %}</span></li>
+{% endfor %}
+    <li class="more"><span class="g" aria-hidden="true">│</span><a href="{{ site.site.resume_path }}">full resume.pdf →</a></li>
+  </ol>
+</section>
+
+<section class="wrap sec" id="open-source" aria-labelledby="os-h">
+  <h2 id="os-h">03 — research &amp; open source</h2>
+  <div class="os">
+{% for o in site.research_and_open_source %}
+    <a href="{{ o.url }}" rel="noopener"><small>{{ o.kicker }}</small><h3>{{ o.title }}</h3><p>{{ o.text }}</p></a>
+{% endfor %}
+  </div>
+</section>
+
+<section class="wrap contact" id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">{{ site.contact.heading }}</h2>
+  <a class="mail" href="mailto:{{ cv.email }}" data-copy>{{ cv.email }}</a>
+  <p class="links"><a href="{{ site.site.linkedin }}" rel="me noopener">linkedin</a><a href="{{ site.site.github }}" rel="me noopener">github</a><a href="{{ site.site.resume_path }}">resume.pdf</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html.j2" %}
+{% block title %}Page not found — {{ cv.name }}{% endblock %}
+{% block canonical %}<meta name="robots" content="noindex, follow">{% endblock %}
+{% block main %}
+<section class="wrap notfound">
+  <p class="tag">error 404</p>
+  <h1>Wrong turn.</h1>
+  <p class="sub">That page is not here.</p>
+  <div class="cta"><a class="btn p" href="/">Back to the portfolio</a><a class="btn s" href="mailto:{{ cv.email }}">Email me</a></div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% macro viz(kind) %}
+{% if kind == "gauge" %}
+<div class="viz gauge" aria-hidden="true"><span>LTV · margin call at 80%</span><div class="track"><i></i><b></b></div></div>
+{% elif kind == "installments" %}
+<div class="viz inst" aria-hidden="true"><span>installments 1 → 4</span><div class="cells"><i></i><i></i><i></i><i></i></div></div>
+{% else %}
+<div class="viz lock" aria-hidden="true"><div class="ln"><span>tx_a</span><div><i></i></div></div><div class="ln"><span>tx_b</span><div><i></i></div></div><span>SELECT … FOR UPDATE</span></div>
+{% endif %}
+{% endmacro %}
