@@ -1,0 +1,63 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          pip install -r requirements.txt
+
+      - name: Render Resume
+        run: rendercv render cv.yaml --dont-generate-png --dont-generate-html --dont-generate-markdown
+
+      - name: Check Resume
+        run: python checks.py rendercv_output/Afshin_Hasani_CV.pdf
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -r index.html 404.html favicon.svg robots.txt sitemap.xml assets _site/
+          cp rendercv_output/Afshin_Hasani_CV.pdf _site/afshin-hasani-resume.pdf
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

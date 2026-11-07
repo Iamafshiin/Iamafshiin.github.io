@@ -1,0 +1,167 @@
+cv:
+  name: Afshin Hasani
+  headline: Senior Backend Engineer — Payments & Lending · PHP · Laravel · Distributed systems
+  location: Remote · GMT+3:30 · Iran
+  email: hassaniiafshin@gmail.com
+  website: https://iamafshiin.github.io/
+  social_networks:
+    - network: LinkedIn
+      username: afshin-hasani
+    - network: GitHub
+      username: Iamafshiin
+  sections:
+    summary:
+      - "Senior backend engineer with 6+ years building lending and payment systems in PHP/Laravel: collateral-backed credit at Carbon, BNPL lending at GSMPay (7,000+ partner stores), and money movement that stays correct under concurrency. Designs multi-provider integrations (banking rails, brokerage APIs) behind clean domain models, and mentors developers. MSc in Software Engineering; IEEE-indexed publication."
+    skills:
+      - label: Languages
+        details: PHP 8.4, Python, SQL, JavaScript
+      - label: Frameworks
+        details: Laravel 11–13, Horizon, Passport
+      - label: Payments
+        details: Idempotency, double-entry ledger, payment-gateway integration, pessimistic locking, transaction isolation
+      - label: Architecture
+        details: Domain-Driven Design, Clean Architecture, CQRS, Strategy & Repository patterns, Microservices, REST / OpenAPI
+      - label: Data
+        details: MySQL, MongoDB, Redis, Elasticsearch, query optimization, indexing
+      - label: Infra
+        details: RabbitMQ, Docker, Nginx, Linux, GitHub Actions, CI/CD
+      - label: Quality
+        details: PHPUnit, feature & integration testing, PHPStan / Larastan, Pint, code review
+      - label: Observability
+        details: Prometheus, structured alerting
+    experience:
+      - company: Carbon OS
+        position: Senior Software Engineer
+        start_date: 2026-05
+        end_date: present
+        summary: "Financial operating system for micro-businesses: payments, wallets and asset-backed credit via licensed partners."
+        highlights:
+          - Designed and shipped a collateral-backed credit system that lets users borrow purchasing power against mutual-fund, gold, silver and crypto holdings — covering asset-preference ordering, purchasing-power calculation, margin protection and deferred per-fund sell submission.
+          - Introduced a broker order-handler strategy pattern abstracting four brokerage APIs behind a single interface, so new brokers can be added without touching order flow.
+          - Built multi-source order payment allowing one fund order to draw from user wallets, organization accounts, online gateways and bank receipts in a defined precedence, backed by regression tests covering every payment-combination permutation.
+          - Made money movement concurrency-safe with pessimistic locking on wallet payment requests, idempotency guards against duplicate deposit tracking codes, and Rial normalization across multi-currency balances.
+          - Eliminated a production memory-exhaustion failure by decomposing a monolithic credit-backing service into focused single-responsibility services.
+          - Instrumented loan-status and provider-credit metrics in Prometheus with Slack alerting when allocatable credit falls below safe thresholds.
+          - Work in a PHP 8.4 / Laravel 13 monolith with Horizon, Passport, Elasticsearch and Redis; contributed to the Laravel 13 upgrade and keep PHPStan/Larastan and Pint green in CI.
+      - company: GSMPay
+        position: Back End Developer
+        start_date: 2024-01
+        end_date: 2026-04
+        summary: Mobile-focused BNPL lendtech; 7,000+ partner stores, IRR 15T+ in credit issued in H1 2024.
+        highlights:
+          - "Implemented core lending flows for a consumer BNPL platform: loan origination, installment scheduling and payment, chain-product orders with multi-installment settlement, contract PDF generation and wallet suspension for delinquent borrowers."
+          - Integrated Iranian banking rails — Sayad cheque inquiry for collateral, IBAN ownership verification behind a proxy abstraction supporting multiple upstream providers, bank credit scoring and partner-bank approval workflow.
+          - Delivered 40+ documented REST endpoints (OpenAPI/Swagger) for customer, merchant and gateway apps, each shipped with feature tests.
+          - "Built financial back-office tooling used daily by finance and ops: quarterly payment exports, bank-payment and transaction Excel reports, gateway PDF exports and filterable datatables."
+          - Built financial services on a microservices architecture with concurrency controls guarding against race conditions in money movement, and modelled business rules with DDD for long-term maintainability.
+          - Dockerized services for simpler, more reliable deployment and continuous integration; tuned slow SQL and MongoDB queries and hardened endpoint validation and security.
+      - company: Changino
+        position: Back End Developer
+        start_date: 2021-10
+        end_date: 2023-09
+        highlights:
+          - Designed backend architecture and database schemas for high-traffic PHP/Laravel applications.
+          - Built resilient API clients for third-party integrations with retry, timeout and circuit-breaker handling.
+          - Rewrote complex reporting queries and data transport, cutting report generation from minutes to seconds.
+          - Worked in a fast-moving production team — sprint planning, daily standups and continuous integration — shipping new features and performance and scalability fixes.
+      - company: MihanService
+        position: Full Stack Developer
+        start_date: 2020-04
+        end_date: 2021-03
+        highlights:
+          - Refactored a legacy codebase, removing key bottlenecks and improving response times.
+          - Built Laravel applications integrating REST APIs with Vue.js frontends; wrote unit tests.
+          - Reworked existing system architecture to cut technical debt, designed scalable internal/third-party APIs, and optimized slow queries and data validation.
+      - company: Earlier experience
+        position: PHP Developer, FATASAN (2015–2018) · Python research assistant, University of Guilan (2017–2018)
+        date: 2015 – 2018
+    publications:
+      - name: "Balancing Safety and Security in Autonomous Driving Systems: A Machine Learning Approach with Safety-First Prioritization"
+        date: 2024-12
+        summary: ARTMAN 2024 workshop, co-located with ACSAC 2024. IEEE Xplore. Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop.
+    education:
+      - institution: University of Guilan
+        area: Software Engineering
+        degree: MSc
+        years: 2021–2024
+      - institution: University of Guilan
+        area: Software Engineering
+        degree: BSc
+        years: 2013–2017
+    languages:
+      - Persian (native) · English (professional working proficiency)
+design:
+  theme: navy
+  page:
+    size: a4
+    top_margin: 1.1cm
+    bottom_margin: 1.2cm
+    left_margin: 1.4cm
+    right_margin: 1.4cm
+    show_footer: false
+    show_top_note: false
+  colors:
+    body: rgb(29, 36, 51)
+    name: rgb(255, 255, 255)
+    headline: rgb(201, 211, 232)
+    connections: rgb(227, 232, 243)
+    section_titles: rgb(31, 45, 77)
+    links: rgb(29, 36, 51)
+  typography:
+    line_spacing: 0.5em
+    alignment: left
+    font_size:
+      body: 9.6pt
+      name: 23pt
+      headline: 10.5pt
+      connections: 8.8pt
+      section_titles: 1.1em
+  links:
+    underline: false
+    show_external_link_icon: false
+  header:
+    alignment: left
+    space_below_name: 0.3cm
+    space_below_headline: 0.2cm
+    space_below_connections: 0cm
+    connections:
+      phone_number_format: international
+      show_icons: false
+      display_urls_instead_of_usernames: true
+      separator: "|"
+      space_between_connections: 0.25cm
+  section_titles:
+    type: with_partial_line
+    line_thickness: 1.2pt
+    space_above: 0.3cm
+    space_below: 0.3cm
+  sections:
+    show_time_spans_in: []
+    space_between_regular_entries: 0.7em
+    space_between_text_based_entries: 0.15em
+  entries:
+    date_and_location_width: 0cm
+    space_between_columns: 0cm
+    side_space: 0cm
+    allow_page_break: true
+    short_second_row: false
+    summary:
+      space_above: 0cm
+    highlights:
+      bullet: •
+      space_left: 0cm
+      space_above: 0.1cm
+      space_between_items: 0cm
+  templates:
+    experience_entry:
+      main_column: "**COMPANY** — POSITION\n*SUMMARY*\nHIGHLIGHTS"
+      date_and_location_column: DATE
+    education_entry:
+      main_column: "**DEGREE, AREA** — INSTITUTION, YEARS"
+      degree_column: null
+      date_and_location_column: ""
+    normal_entry:
+      main_column: "**NAME**\nSUMMARY"
+      date_and_location_column: ""
+locale:
+  language: english
