@@ -62,7 +62,7 @@
   <h2 id="os-h">03 — research &amp; open source</h2>
   <div class="os">
 {% for o in site.research_and_open_source %}
-    <a href="{{ o.url }}" rel="noopener"><small>{{ o.kicker }}</small><h3>{{ o.title }}</h3><p>{{ o.text }}</p></a>
+    <article><small>{{ o.kicker }}</small><h3><a href="{{ o.url }}" rel="noopener">{{ o.title }}</a></h3><p>{{ o.text }}</p><p class="links"><a href="{{ o.url }}" rel="noopener">{{ "paper" if "ieee" in o.url else "code" }} →</a>{% if o.repo is defined %}<a href="{{ o.repo }}" rel="noopener">{{ "code" if "ieee" in o.url else o.repo.rsplit("/", 1)[1] }} →</a>{% endif %}</p></article>
 {% endfor %}
   </div>
 </section>

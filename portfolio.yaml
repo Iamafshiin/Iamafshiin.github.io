@@ -47,12 +47,14 @@ proof_points:
 research_and_open_source:
   - kicker: IEEE · ARTMAN @ ACSAC 2024
     title: Balancing Safety and Security in Autonomous Driving Systems
-    text: Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop · paper repo
-    url: https://github.com/Iamafshiin/SafeDriveRL
+    text: Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop.
+    url: https://ieeexplore.ieee.org/document/10917620
+    repo: https://github.com/Iamafshiin/SafeDriveRL
   - kicker: github · laravel
     title: auth + message microservices
     text: JWT auth and messaging services designed as one system.
     url: https://github.com/Iamafshiin/auth-microservice
+    repo: https://github.com/Iamafshiin/message-microservice
 
 contact:
   heading: Building something that moves money?
