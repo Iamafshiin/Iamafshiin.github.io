@@ -93,8 +93,12 @@ h1{font-family:var(--head);font-weight:600;color:#fff;letter-spacing:-.02em}
 .gitlog .more a{grid-column:4;color:var(--acc)}
 
 .os{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.os a{border:1px solid var(--edge);border-radius:12px;padding:20px;background:rgba(13,20,40,.6)}
-.os a:hover{border-color:var(--acc)}
+.os article{position:relative;border:1px solid var(--edge);border-radius:12px;padding:20px;background:rgba(13,20,40,.6)}
+.os article:hover{border-color:var(--acc)}
+.os h3 a::after{content:"";position:absolute;inset:0}
+.os .links{position:relative;display:flex;gap:18px;margin-top:10px;font:12px var(--mono)}
+.os .links a{color:var(--acc)}
+.os .links a:hover{color:#fff}
 .os small{font:11px var(--mono);color:var(--label)}
 .os h3{color:#fff;margin:6px 0 4px;font:600 17px var(--head)}
 .os p{font-size:14px;color:var(--dim)}
@@ -174,7 +178,7 @@ h1{font-family:var(--head);font-weight:600;color:#fff;letter-spacing:-.02em}
 
 @media (prefers-reduced-motion:no-preference){
   html{scroll-behavior:smooth}
-  .nav ul a,.btn,.btn.s,.card,.os a,.cs-foot a,.toast,.sm .node rect,.sm .node text{transition:all .2s}
+  .nav ul a,.btn,.btn.s,.card,.os article,.cs-foot a,.toast,.sm .node rect,.sm .node text{transition:all .2s}
   .btn.p:hover,.card:hover{transform:translateY(-2px)}
   .card:hover .go span{transform:translateX(5px);transition:transform .2s}
   .tag .dot{animation:pulse 2s infinite}

@@ -78,6 +78,7 @@ cv:
     publications:
       - name: "Balancing Safety and Security in Autonomous Driving Systems: A Machine Learning Approach with Safety-First Prioritization"
         date: 2024-12
+        url: https://ieeexplore.ieee.org/document/10917620
         summary: ARTMAN 2024 workshop, co-located with ACSAC 2024. IEEE Xplore. Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop.
     education:
       - institution: University of Guilan
@@ -161,7 +162,7 @@ design:
       degree_column: null
       date_and_location_column: ""
     normal_entry:
-      main_column: "**NAME**\nSUMMARY"
+      main_column: "**NAME**\nSUMMARY URL"
       date_and_location_column: ""
 locale:
   language: english
