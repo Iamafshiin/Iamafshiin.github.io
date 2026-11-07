@@ -35,14 +35,11 @@ jobs:
       - name: Render Resume
         run: rendercv render cv.yaml --dont-generate-png --dont-generate-html --dont-generate-markdown
 
-      - name: Check Resume
-        run: python checks.py rendercv_output/Afshin_Hasani_CV.pdf
+      - name: Build site
+        run: python build.py
 
-      - name: Assemble site
-        run: |
-          mkdir -p _site
-          cp -r index.html 404.html favicon.svg robots.txt sitemap.xml assets _site/
-          cp rendercv_output/Afshin_Hasani_CV.pdf _site/afshin-hasani-resume.pdf
+      - name: Check Resume and site
+        run: python checks.py rendercv_output/Afshin_Hasani_CV.pdf --site _site
 
       - uses: actions/upload-pages-artifact@v3
         with:

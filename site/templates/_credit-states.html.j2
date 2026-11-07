@@ -1,0 +1,12 @@
+<figure class="sm">
+  <svg viewBox="0 0 640 90" role="img" aria-label="Credit states: active, margin call, liquidating, settled">
+    <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#2e3c6e"/></marker></defs>
+    <path class="edge" d="M128,45H162"/><path class="edge" d="M290,45H324"/><path class="edge" d="M452,45H486"/>
+    <g class="node on" id="n0"><rect x="4" y="22" width="124" height="46" rx="8"/><text x="66" y="50" text-anchor="middle">active</text></g>
+    <g class="node warn" id="n1"><rect x="166" y="22" width="124" height="46" rx="8"/><text x="228" y="50" text-anchor="middle">margin_call</text></g>
+    <g class="node warn" id="n2"><rect x="328" y="22" width="124" height="46" rx="8"/><text x="390" y="50" text-anchor="middle">liquidating</text></g>
+    <g class="node" id="n3"><rect x="490" y="22" width="146" height="46" rx="8"/><text x="563" y="50" text-anchor="middle">settled</text></g>
+  </svg>
+  <div class="ctl" hidden><label for="drop">collateral price</label><input type="range" id="drop" min="0" max="60" value="0"><output class="ltv" id="ltv" for="drop"></output></div>
+  <figcaption>illustrative states and thresholds · drag to drop the collateral price</figcaption>
+</figure>

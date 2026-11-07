@@ -1,5 +1,7 @@
+import argparse
 import re
 import subprocess
+from html.parser import HTMLParser
 import sys
 from pathlib import Path
 
@@ -83,19 +85,126 @@ def check_pdf(pdf: Path, cv: dict) -> list[str]:
     return errors
 
 
+SECTION_HEADINGS = ["context", "problem", "constraints", "approach", "outcome", "stack"]
+MOTION = re.compile(r"\b(animation|transition)\s*:|@keyframes")
+
+
+class PageParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.refs: list[str] = []
+        self.ids: set[str] = set()
+        self.text: list[str] = []
+        self.skip = 0
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        attrs = dict(attrs)
+        if "id" in attrs:
+            self.ids.add(attrs["id"])
+        for key in ("href", "src"):
+            if attrs.get(key):
+                self.refs.append(attrs[key])
+        if tag in ("script", "style"):
+            self.skip += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in ("script", "style"):
+            self.skip -= 1
+
+    def handle_data(self, data: str) -> None:
+        if not self.skip:
+            self.text.append(data)
+
+
+def parse(path: Path) -> PageParser:
+    parser = PageParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    parser.plain = re.sub(r"\s+", " ", " ".join(parser.text))
+    return parser
+
+
+def resolve(site: Path, page: Path, ref: str) -> tuple[Path, str]:
+    path, _, anchor = ref.partition("#")
+    if not path:
+        return page, anchor
+    target = site / path.lstrip("/") if path.startswith("/") else page.parent / path
+    if path.endswith("/") or target.is_dir():
+        target = target / "index.html"
+    return target, anchor
+
+
+def check_site(site: Path, cv: dict, portfolio: dict) -> list[str]:
+    errors = []
+    pages = {p: parse(p) for p in site.rglob("*.html")}
+    for page, parsed in pages.items():
+        name = page.relative_to(site).as_posix()
+        for ref in parsed.refs:
+            if re.match(r"^(https?:|mailto:|tel:|data:)", ref):
+                continue
+            target, anchor = resolve(site, page, ref.split("?")[0])
+            if not target.exists():
+                errors.append(f"[{name}] broken link or asset: {ref}")
+            elif anchor and target.suffix == ".html" and anchor not in pages.get(target, parse(target)).ids:
+                errors.append(f"[{name}] missing anchor: {ref}")
+
+    home = pages.get(site / "index.html")
+    if home is None:
+        return errors + ["index.html was not built"]
+    for point in portfolio["proof_points"]:
+        for field in ("title", "fact", "role"):
+            if point[field] not in home.plain:
+                errors.append(f"[index.html] Proof Point {field} missing from static HTML: {point[field]}")
+    for entry in cv["sections"]["experience"]:
+        if "start_date" in entry and f"{entry['company']} — {entry['position']}" not in home.plain:
+            errors.append(f"[index.html] role line missing from static HTML: {entry['company']}")
+
+    companies = {e["company"] for e in cv["sections"]["experience"]}
+    for path in sorted((ROOT / "case-studies").glob("*.md")):
+        front = yaml.safe_load(path.read_text(encoding="utf-8").split("---", 2)[1])
+        for company in front["company"].split(" · "):
+            if company not in companies:
+                errors.append(f"[case-studies/{path.name}] company '{company}' is not a role in cv.yaml")
+        page = pages.get(site / "case-studies" / path.stem / "index.html")
+        if page is None:
+            errors.append(f"[case-studies/{path.stem}] page was not built")
+            continue
+        for heading in SECTION_HEADINGS:
+            if heading not in page.plain:
+                errors.append(f"[case-studies/{path.stem}] section '{heading}' missing from static HTML")
+        if front["role"] not in page.plain:
+            errors.append(f"[case-studies/{path.stem}] Role line missing from static HTML")
+    if not any(p.relative_to(site).as_posix() in portfolio["site"]["resume_path"] for p in site.glob("*.pdf")):
+        errors.append(f"Resume PDF missing at {portfolio['site']['resume_path']}")
+
+    for css in site.rglob("*.css"):
+        text = css.read_text(encoding="utf-8")
+        start = text.find("@media (prefers-reduced-motion:no-preference){")
+        end = text.find("\n}\n", start) if start >= 0 else -1
+        outside = text[:start] + text[end:] if start >= 0 else text
+        if MOTION.search(outside):
+            errors.append(f"[{css.name}] animation or transition outside prefers-reduced-motion: no-preference")
+    return errors
+
+
 def main() -> int:
-    pdf = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "rendercv_output" / "Afshin_Hasani_CV.pdf"
+    args = argparse.ArgumentParser()
+    args.add_argument("pdf", nargs="?", type=Path, default=ROOT / "rendercv_output" / "Afshin_Hasani_CV.pdf")
+    args.add_argument("--site", type=Path)
+    opts = args.parse_args()
     cv = yaml.safe_load((ROOT / "cv.yaml").read_text(encoding="utf-8"))["cv"]
     errors = []
     if "phone" in cv:
         errors.append("cv.yaml contains a phone number; pass it with --cv.phone locally instead")
-    errors += check_pdf(pdf, cv)
+    errors += check_pdf(opts.pdf, cv)
+    if opts.site:
+        portfolio = yaml.safe_load((ROOT / "portfolio.yaml").read_text(encoding="utf-8"))
+        errors += check_site(opts.site, cv, portfolio)
     for error in errors:
         print(f"FAIL {error}")
     if not errors:
-        print(f"OK {pdf.name}: {EXPECTED_PAGES} pages, extraction keeps dates, skills and degrees together")
+        scope = f" and site {opts.site}" if opts.site else ""
+        print(f"OK {opts.pdf.name}{scope}: all checks passed")
     return 1 if errors else 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

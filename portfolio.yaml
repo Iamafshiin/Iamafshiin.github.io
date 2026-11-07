@@ -1,0 +1,58 @@
+site:
+  url: https://iamafshiin.github.io
+  title: Afshin Hasani — Senior Backend Engineer, Payments & Lending
+  description: Senior backend engineer building lending and payment systems in PHP/Laravel — collateral-backed credit, BNPL lending, and money movement that stays correct under concurrency.
+  resume_path: /afshin-hasani-resume.pdf
+  linkedin: https://www.linkedin.com/in/afshin-hasani/
+  github: https://github.com/Iamafshiin
+
+hero:
+  tag: senior backend engineer — payments & lending
+  lead: "Senior backend engineer building "
+  highlight: lending and payment systems.
+  sub_strong: PHP · Laravel · Distributed systems
+  sub: — 6+ years making money move correctly under concurrency.
+
+ledger:
+  accounts:
+    - wallet:user_291
+    - wallet:user_884
+    - escrow:order_77
+    - loan:bnpl_4410
+    - settle:bank_01
+    - fees:platform
+    - collat:fund_12
+    - wallet:merchant_31
+
+proof_points:
+  - slug: carbon-collateral-credit
+    kicker: 01 / carbon · 2026 –
+    title: Collateral-backed credit
+    fact: 4 brokerage APIs
+    role: "Designed and shipped the credit system: purchasing power, margin protection, liquidation."
+    viz: gauge
+  - slug: gsmpay-bnpl
+    kicker: 02 / gsmpay · 2024 – 2026
+    title: BNPL lending flows
+    fact: 7,000+ stores
+    role: Built core origination, installment scheduling and partner-bank approval.
+    viz: installments
+  - slug: money-movement
+    kicker: 03 / carbon + gsmpay
+    title: Money movement that stays correct
+    fact: Σ DR = Σ CR
+    role: Pessimistic locking, idempotency and a double-entry ledger.
+    viz: lock
+
+research_and_open_source:
+  - kicker: IEEE · ARTMAN @ ACSAC 2024
+    title: Balancing Safety and Security in Autonomous Driving Systems
+    text: Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop · paper repo
+    url: https://github.com/Iamafshiin/SafeDriveRL
+  - kicker: github · laravel
+    title: auth + message microservices
+    text: JWT auth and messaging services designed as one system.
+    url: https://github.com/Iamafshiin/auth-microservice
+
+contact:
+  heading: Building something that moves money?
