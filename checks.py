@@ -8,6 +8,8 @@ from pathlib import Path
 import yaml
 from pypdf import PdfReader
 
+from build import load_case_studies, proof_points
+
 ROOT = Path(__file__).parent
 EXPECTED_PAGES = 2
 DATE_RANGE = r"(?:[A-Z][a-z]+ )?(?P<start>\d{4}) – (?:present|(?:[A-Z][a-z]+ )?\d{4})"
@@ -85,7 +87,6 @@ def check_pdf(pdf: Path, cv: dict) -> list[str]:
     return errors
 
 
-SECTION_HEADINGS = ["context", "problem", "constraints", "approach", "outcome", "stack"]
 MOTION = re.compile(r"\b(animation|transition)\s*:|@keyframes")
 
 
@@ -133,6 +134,59 @@ def resolve(site: Path, page: Path, ref: str) -> tuple[Path, str]:
     return target, anchor
 
 
+def portfolio_by_lang(portfolio: dict) -> dict[str, dict]:
+    langs = {"": portfolio}
+    fa = ROOT / "fa" / "portfolio.yaml"
+    if fa.exists():
+        langs["fa"] = yaml.safe_load(fa.read_text(encoding="utf-8"))
+    return langs
+
+
+def check_lang(site: Path, pages: dict, cv: dict, prefix: str, portfolio: dict) -> list[str]:
+    errors = []
+    out = site / prefix if prefix else site
+    label = f"{prefix}/" if prefix else ""
+    home = pages.get(out / "index.html")
+    if home is None:
+        return [f"{label}index.html was not built"]
+    if f'lang="{portfolio["ui"]["lang"]}"' not in (out / "index.html").read_text(encoding="utf-8"):
+        errors.append(f"[{label}index.html] html lang is not {portfolio['ui']['lang']}")
+    studies = {s["slug"]: s for s in load_case_studies(portfolio["ui"]["lang"])}
+    for point in proof_points(portfolio, list(studies.values()), portfolio["ui"]["lang"]):
+        for field in ("title", "fact", "fact_label", "role"):
+            if point[field] not in home.plain:
+                errors.append(f"[{label}index.html] project {field} missing from static HTML: {point[field]}")
+    companies = {e["company"] for e in cv["sections"]["experience"]}
+    for entry in cv["sections"]["experience"]:
+        if "start_date" not in entry:
+            continue
+        info = portfolio["companies"].get(entry["company"], {})
+        line = f"{info.get('name', entry['company'])} — {info.get('position', entry['position'])}"
+        if line not in home.plain:
+            errors.append(f"[{label}index.html] role line missing from static HTML: {line}")
+
+    required = portfolio["ui"]["case"]["required"]
+    for path in sorted((ROOT / prefix / "case-studies").glob("*.md")):
+        front = yaml.safe_load(path.read_text(encoding="utf-8").split("---", 2)[1])
+        for company in front["companies"]:
+            if company not in companies:
+                errors.append(f"[{label}case-studies/{path.name}] company '{company}' is not a role in cv.yaml")
+        page = pages.get(out / "case-studies" / path.stem / "index.html")
+        if page is None:
+            errors.append(f"[{label}case-studies/{path.stem}] page was not built")
+            continue
+        for heading in required:
+            if heading.lower() not in page.plain.lower():
+                errors.append(f"[{label}case-studies/{path.stem}] section '{heading}' missing from static HTML")
+        for field in ("role", "summary"):
+            if front[field] not in page.plain:
+                errors.append(f"[{label}case-studies/{path.stem}] {field} missing from static HTML")
+        for step in front["steps"]:
+            if step["title"] not in page.plain:
+                errors.append(f"[{label}case-studies/{path.stem}] step missing from static HTML: {step['title']}")
+    return errors
+
+
 def check_site(site: Path, cv: dict, portfolio: dict) -> list[str]:
     errors = []
     pages = {p: parse(p) for p in site.rglob("*.html")}
@@ -147,32 +201,8 @@ def check_site(site: Path, cv: dict, portfolio: dict) -> list[str]:
             elif anchor and target.suffix == ".html" and anchor not in pages.get(target, parse(target)).ids:
                 errors.append(f"[{name}] missing anchor: {ref}")
 
-    home = pages.get(site / "index.html")
-    if home is None:
-        return errors + ["index.html was not built"]
-    for point in portfolio["proof_points"]:
-        for field in ("title", "fact", "role"):
-            if point[field] not in home.plain:
-                errors.append(f"[index.html] Proof Point {field} missing from static HTML: {point[field]}")
-    for entry in cv["sections"]["experience"]:
-        if "start_date" in entry and f"{entry['company']} — {entry['position']}" not in home.plain:
-            errors.append(f"[index.html] role line missing from static HTML: {entry['company']}")
-
-    companies = {e["company"] for e in cv["sections"]["experience"]}
-    for path in sorted((ROOT / "case-studies").glob("*.md")):
-        front = yaml.safe_load(path.read_text(encoding="utf-8").split("---", 2)[1])
-        for company in front["company"].split(" · "):
-            if company not in companies:
-                errors.append(f"[case-studies/{path.name}] company '{company}' is not a role in cv.yaml")
-        page = pages.get(site / "case-studies" / path.stem / "index.html")
-        if page is None:
-            errors.append(f"[case-studies/{path.stem}] page was not built")
-            continue
-        for heading in SECTION_HEADINGS:
-            if heading not in page.plain:
-                errors.append(f"[case-studies/{path.stem}] section '{heading}' missing from static HTML")
-        if front["role"] not in page.plain:
-            errors.append(f"[case-studies/{path.stem}] Role line missing from static HTML")
+    for prefix, data in portfolio_by_lang(portfolio).items():
+        errors += check_lang(site, pages, cv, prefix, data)
     if not any(p.relative_to(site).as_posix() in portfolio["site"]["resume_path"] for p in site.glob("*.pdf")):
         errors.append(f"Resume PDF missing at {portfolio['site']['resume_path']}")
 

@@ -1,15 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ ui.lang }}" dir="{{ ui.dir }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ site.site.title }}{% endblock %}</title>
 <meta name="description" content="{% block description %}{{ site.site.description }}{% endblock %}">
 <meta name="author" content="{{ cv.name }}">
-<meta name="theme-color" content="#070b16">
-{% block canonical %}<link rel="canonical" href="{{ site.site.url }}/">{% endblock %}
+<meta name="theme-color" content="#faf8f4">
+{% block canonical %}<link rel="canonical" href="{{ site.site.url }}{{ path }}">
+<link rel="alternate" hreflang="{{ ui.lang }}" href="{{ site.site.url }}{{ path }}">
+<link rel="alternate" hreflang="{{ ui.other_lang }}" href="{{ site.site.url }}{{ alt }}">{% endblock %}
 <meta property="og:type" content="profile">
-<meta property="og:site_name" content="{{ cv.name }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="{{ "fa_IR" if ui.lang == "fa" else "en_US" }}">
 <meta property="og:title" content="{{ self.title() }}">
 <meta property="og:description" content="{{ self.description() }}">
 <meta property="og:image" content="{{ site.site.url }}/assets/og-image.png">
@@ -18,28 +21,27 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+{% if ui.lang == "fa" %}
+<link rel="preload" href="/assets/fonts/vazirmatn-var.woff2" as="font" type="font/woff2" crossorigin>
+{% else %}
 <link rel="preload" href="/assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/space-grotesk-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/jetbrains-mono-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+{% endif %}
 <link rel="stylesheet" href="/assets/css/site.css">
-{% block head %}{% endblock %}
-<script src="/assets/js/palette.js" defer></script>
-<script src="/assets/js/effects.js" defer></script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-{% set home = "" if page == "home" else "/" %}
+<a class="skip" href="#main">{{ ui.skip }}</a>
+{% set home = "" if page == "home" else root %}
 <header class="nav">
   <div class="wrap">
-    <a class="name" href="/">afshin.hasani<i>_</i></a>
-    <nav aria-label="Primary">
+    <a class="name" href="{{ root }}">{{ site.name }}</a>
+    <nav aria-label="{{ ui.nav.label }}">
       <ul>
-        <li><a href="{{ home }}#work">Work</a></li>
-        <li><a href="{{ home }}#experience">Experience</a></li>
-        <li><a href="{{ home }}#open-source">Open source</a></li>
-        <li><a href="{{ home }}#contact">Contact</a></li>
-        <li><a class="pdf" href="{{ site.site.resume_path }}">Resume (PDF)</a></li>
-        <li class="k-item"><button class="k" type="button" data-pal aria-label="Open command palette" hidden>⌘K</button></li>
+        <li><a href="{{ home }}#work">{{ ui.nav.work }}</a></li>
+        <li><a href="{{ home }}#about">{{ ui.nav.about }}</a></li>
+        <li><a href="{{ home }}#contact">{{ ui.nav.contact }}</a></li>
+        <li><a class="lang" href="{{ alt }}" lang="{{ ui.other_lang }}" hreflang="{{ ui.other_lang }}" title="{{ ui.other_title }}">{{ ui.other_label }}</a></li>
+        <li><a class="pdf" href="{{ site.site.resume_path }}">{{ ui.nav.resume }}</a></li>
       </ul>
     </nav>
   </div>
@@ -48,22 +50,7 @@
 {% block main %}{% endblock %}
 </main>
 <footer class="foot">
-  <div class="wrap">© {{ year }} {{ cv.name }} · built from one Content Source</div>
+  <div class="wrap">© {{ year | num }} {{ site.name }}<span><a href="mailto:{{ cv.email }}">{{ ui.email }}</a><a href="{{ site.site.linkedin }}" rel="me noopener">LinkedIn</a><a href="{{ site.site.github }}" rel="me noopener">GitHub</a></span></div>
 </footer>
-<div class="pal" id="pal" hidden>
-  <div class="box" role="dialog" aria-modal="true" aria-label="Command palette">
-    <input id="palin" placeholder="type a command…" autocomplete="off" aria-label="Command">
-    <ul id="pallist" role="listbox"></ul>
-  </div>
-</div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script type="application/json" id="pal-data">{{ {
-  "email": cv.email,
-  "resume": site.site.resume_path,
-  "github": site.site.github,
-  "linkedin": site.site.linkedin,
-  "studies": studies | map(attribute="title") | list,
-  "slugs": studies | map(attribute="slug") | list
-} | tojson }}</script>
 </body>
 </html>

@@ -1,0 +1,179 @@
+# Persian version of portfolio.yaml. Same structure; `site` values not set here come from ../portfolio.yaml.
+name: افشین حسنی
+
+site:
+  title: افشین حسنی — برنامه‌نویس بک‌اند، پرداخت و اعتبار
+  description: افشین حسنی، برنامه‌نویس ارشد بک‌اند با بیش از ۶ سال سابقه در ساخت سیستم‌های پرداخت، اعتبار و خرید اقساطی در فین‌تک.
+
+hero:
+  hello: سلام، من افشین هستم.
+  lead: "برنامه‌نویس بک‌اند هستم و سیستم‌های "
+  highlight: پرداخت، اعتبار و خرید اقساطی را می‌سازم.
+  sub: کاربر فقط صفحهٔ اپ را می‌بیند؛ کار من بخشی است که بعد از زدن دکمهٔ «پرداخت» اجرا می‌شود — چک کردن موجودی، استعلام از بانک، و ثبت درست هر تراکنش.
+  facts:
+    - value: بیش از ۶ سال
+      label: سابقه در بک‌اند سیستم‌های مالی
+    - value: بیش از ۷٬۰۰۰
+      label: فروشگاه همکار در سیستم اقساطی که روی آن کار کردم
+    - value: کارشناسی ارشد
+      label: مهندسی نرم‌افزار
+
+explainer:
+  heading: کار من، به زبان ساده
+  analogy: "هر اپ دو بخش دارد: فرانت‌اند، یعنی صفحه‌هایی که کاربر می‌بیند؛ و بک‌اند، یعنی سرور و منطقی که پشت آن صفحه‌ها کار می‌کند. من بک‌اند می‌نویسم — بخشی که کاربر نمی‌بیند، ولی درست کار کردن پول و اطلاعاتش به آن بستگی دارد."
+  items:
+    - icon: pay
+      title: پرداخت
+      text: کیف پول، درگاه پرداخت و تراکنش‌هایی که دقیقاً یک بار ثبت می‌شوند؛ نه گم می‌شوند، نه دو بار کسر می‌شوند.
+    - icon: loan
+      title: اعتبار و اقساط
+      text: محاسبهٔ سقف اعتبار، تقسیم آن به اقساط ماهانه، و پیگیری پرداخت تک‌تک قسط‌ها.
+    - icon: bank
+      title: اتصال به بانک‌ها و کارگزاری‌ها
+      text: اتصال به API بانک‌ها و کارگزاری‌ها برای استعلام و ثبت سفارش، تا کاربر نه فرم پر کند و نه در صف بماند.
+
+proof_points:
+  - slug: carbon-collateral-credit
+    fact: "۴"
+    fact_label: کارگزاری متصل شده
+  - slug: gsmpay-bnpl
+    fact: بیش از ۷٬۰۰۰
+    fact_label: فروشگاه همکار
+  - slug: money-movement
+    fact: فقط ۱ بار
+    fact_label: هر تراکنش دقیقاً یک بار ثبت می‌شود
+
+wins:
+  - value: از دقیقه به ثانیه
+    text: کوئری‌های گزارش‌گیری را در Changino بازنویسی کردم تا گزارش‌ها به‌جای چند دقیقه، در چند ثانیه آماده شوند.
+  - value: استفادهٔ هرروزه
+    text: تیم‌های مالی و عملیات GSMPay هر روز از گزارش‌ها و خروجی‌های Excel پنل ادمینی که ساختم استفاده می‌کنند.
+  - value: هشدار زودهنگام
+    text: در Carbon با Prometheus مانیتورینگ گذاشتم تا قبل از اینکه اعتبار قابل تخصیص کم شود، تیم در Slack هشدار بگیرد.
+  - value: بیش از ۴۰
+    text: API برای اپ مشتری، اپ فروشگاه و درگاه پرداخت GSMPay — همه با مستندات Swagger و تست.
+
+companies:
+  Carbon OS:
+    name: Carbon
+    url: https://carbon.ir
+    position: Senior Software Engineer
+    note: سیستم عامل مالی برای کسب‌وکارهای خُرد — پرداخت، کیف پول و قدرت خرید با طلا، نقره و رمزارز.
+  GSMPay:
+    name: GSMPay
+    url: https://gsmpay.ir
+    position: Back End Developer
+    note: لندتک تخصصی حوزهٔ موبایل — خرید اقساطی موبایل و لوازم جانبی در بیش از ۷٬۰۰۰ فروشگاه همکار.
+  Changino:
+    name: Changino
+    position: Back End Developer
+    note: وب‌اپلیکیشن‌های پرترافیک؛ بهینه‌سازی کوئری‌ها و گزارش‌ها.
+  MihanService:
+    name: MihanService
+    position: Full Stack Developer
+    note: ریفکتور یک سیستم قدیمی و بهبود سرعت آن.
+
+education:
+  - title: کارشناسی ارشد مهندسی نرم‌افزار
+    place: دانشگاه گیلان، ۲۰۲۱ تا ۲۰۲۴
+  - title: کارشناسی مهندسی نرم‌افزار
+    place: دانشگاه گیلان، ۲۰۱۳ تا ۲۰۱۷
+
+research_and_open_source:
+  - kicker: مقالهٔ پژوهشی · IEEE · ۲۰۲۴
+    title: تغییر لاین ایمن در خودروهای خودران
+    text: استفاده از Reinforcement Learning برای اینکه خودروی خودران هنگام تغییر لاین، ایمنی را در اولویت بگذارد. منتشرشده در IEEE Xplore.
+    url: https://ieeexplore.ieee.org/document/10917620
+    url_label: خواندن مقاله
+    repo: https://github.com/Iamafshiin/SafeDriveRL
+    repo_label: دیدن کد
+  - kicker: اوپن‌سورس · GitHub
+    title: میکروسرویس‌های Auth و Message
+    text: دو میکروسرویس Laravel که با هم کار می‌کنند — یکی احراز هویت کاربران با JWT و دیگری ارسال پیام.
+    url: https://github.com/Iamafshiin/auth-microservice
+    url_label: auth-microservice
+    repo: https://github.com/Iamafshiin/message-microservice
+    repo_label: message-microservice
+
+contact:
+  heading: بیایید با هم کار کنیم
+  text: سریع‌ترین راه ارتباط با من ایمیل است.
+
+ui:
+  lang: fa
+  dir: rtl
+  now: اکنون
+  other_lang: en
+  other_label: English
+  other_title: English version
+  skip: رفتن به محتوا
+  nav: {label: منوی اصلی, work: نمونه‌کارها, about: درباره, contact: تماس, resume: رزومه}
+  see_work: دیدن نمونه‌کارها ↓
+  get_in_touch: تماس با من
+  flow:
+    aria: بعد از زدن دکمهٔ پرداخت چه اتفاقی می‌افتد
+    tap: شما «پرداخت» را می‌زنید
+    label: بک‌اند — بخشی که من می‌سازم
+    steps:
+      - آیا موجودی کافی است؟
+      - آیا این پرداخت قبلاً انجام شده؟
+      - در صورت نیاز، استعلام از بانک
+      - ثبت تراکنش در دفتر دوطرفه
+    done: تمام — یک بار پرداخت شد و درست ثبت شد
+  work_eyebrow: نمونه‌کارها
+  work_heading: سه چیزی که ساختم، و کاری که برای آدم‌های واقعی کرد
+  work_note: تصویرهای محصول از سایت خود شرکت‌هاست؛ تصویر سوم طرح ساده‌ای از ایده است.
+  read_more: خواندن ماجرای کامل
+  wins_eyebrow: نتایج بیشتر
+  wins_heading: موفقیت‌های کوچک‌تر در طول مسیر
+  exp_eyebrow: سابقهٔ کاری
+  exp_heading: جاهایی که کار کرده‌ام
+  resume_link: دانلود رزومهٔ کامل (PDF، به انگلیسی)
+  edu_eyebrow: تحصیلات و پژوهش
+  edu_heading: فراتر از کار روزمره
+  email: ایمیل
+  resume: رزومه (PDF)
+  case:
+    back: → همهٔ نمونه‌کارها
+    company: شرکت
+    when: زمان
+    my_part: نقش من
+    figcaption: طرح ساده‌ای از ایده، نه اسکرین‌شات واقعی اپ.
+    glance: در یک نگاه
+    built_heading: چه ساختم
+    tech_heading: جزئیات فنی
+    how_it_works: چطور کار می‌کند
+    tech_sub: برای مهندس‌ها و به انگلیسی — اگر مهندس نیستید، می‌توانید از آن بگذرید
+    more_work: نمونه‌کارهای دیگر
+    prev: → قبلی
+    next: بعدی ←
+    questions: سؤالی دربارهٔ این پروژه دارید؟
+    email_me: به من ایمیل بزنید
+    required: [مشکل چه بود, چه ساختم, چطور کار می‌کند, نتیجه, جزئیات فنی]
+  mock:
+    credit:
+      title: دارایی‌های من
+      assets: [[gold, طلا, ۱۲۰ میلیون], [fund, صندوق سرمایه‌گذاری, ۸۰ میلیون], [crypto, رمزارز, ۴۰ میلیون]]
+      spend: همین حالا می‌توانید خرج کنید
+      amount: ۱۴۰٬۰۰۰٬۰۰۰
+      unit: ریال
+      stay: دارایی‌ها فروخته نمی‌شوند
+      button: خرید با اعتبار
+    installments:
+      title: پرداخت سفارش
+      item: گوشی جدید
+      price: ۴۸٬۰۰۰٬۰۰۰ ریال
+      plan: پرداخت در ۴ قسط ماهانه
+      rows: [امروز, ماه بعد, دو ماه بعد, سه ماه بعد]
+      amount: ۱۲ میلیون
+      approved: ✓ بانک تأیید کرد
+    once:
+      title: پرداخت
+      button: پرداخت ۲٬۰۰۰٬۰۰۰ ریال
+      tap: لمس
+      paid: رسید شمارهٔ ۷۱
+      paid_sub: پرداخت شد
+      dup: رسید شمارهٔ ۷۱، دوباره
+      dup_sub: قبلاً پرداخت شده — نادیده گرفته شد
+      result: فقط یک بار کم شد
+      wallet: ۲٬۰۰۰٬۰۰۰ ریال از کیف پول

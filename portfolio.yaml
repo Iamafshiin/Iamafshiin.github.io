@@ -1,60 +1,178 @@
+name: Afshin Hasani
+
 site:
   url: https://iamafshiin.github.io
-  title: Afshin Hasani — Senior Backend Engineer, Payments & Lending
-  description: Senior backend engineer building lending and payment systems in PHP/Laravel — collateral-backed credit, BNPL lending, and money movement that stays correct under concurrency.
+  title: Afshin Hasani — I build the systems behind payment and lending apps
+  description: Afshin Hasani builds the behind-the-scenes systems that let people pay, borrow and buy in installments — safely. 6+ years at fintech companies.
   resume_path: /afshin-hasani-resume.pdf
   linkedin: https://www.linkedin.com/in/afshin-hasani/
   github: https://github.com/Iamafshiin
 
 hero:
-  tag: senior backend engineer — payments & lending
-  lead: "Senior backend engineer building "
-  highlight: lending and payment systems.
-  sub_strong: PHP · Laravel · Distributed systems
-  sub: — 6+ years making money move correctly under concurrency.
+  hello: Hi, I'm Afshin.
+  lead: "I build the engine behind apps that let people "
+  highlight: pay, borrow and buy in installments.
+  sub: You see the app's buttons. I build what happens after you tap them — checking the balance, talking to the bank, and making sure every rial lands in the right place.
+  facts:
+    - value: 6+ years
+      label: building money apps
+    - value: 7,000+
+      label: stores using my loan system
+    - value: MSc
+      label: in software engineering
 
-ledger:
-  accounts:
-    - wallet:user_291
-    - wallet:user_884
-    - escrow:order_77
-    - loan:bnpl_4410
-    - settle:bank_01
-    - fees:platform
-    - collat:fund_12
-    - wallet:merchant_31
+explainer:
+  heading: What I do, in plain words
+  analogy: "Every app has two parts. The front end is the screens you see and tap. The back end is the servers and logic behind those screens. I build the back end — the part customers never see, but the part that decides whether their money and data end up in the right place."
+  items:
+    - icon: pay
+      title: Payments
+      text: Money goes from A to B exactly once — never lost, never charged twice.
+    - icon: loan
+      title: Loans & installments
+      text: Work out how much someone can borrow, split it into monthly payments, and keep track of every payment.
+    - icon: bank
+      title: Connecting to banks
+      text: The app checks things with banks and investment platforms automatically, so customers don't fill in forms or wait in line.
 
 proof_points:
   - slug: carbon-collateral-credit
-    kicker: 01 / carbon · 2026 –
-    title: Collateral-backed credit
-    fact: 4 brokerage APIs
-    role: "Designed and shipped the credit system: purchasing power, margin protection, liquidation."
-    viz: gauge
+    fact: "4"
+    fact_label: investment platforms connected
   - slug: gsmpay-bnpl
-    kicker: 02 / gsmpay · 2024 – 2026
-    title: BNPL lending flows
-    fact: 7,000+ stores
-    role: Built core origination, installment scheduling and partner-bank approval.
-    viz: installments
+    fact: 7,000+
+    fact_label: partner stores
   - slug: money-movement
-    kicker: 03 / carbon + gsmpay
-    title: Money movement that stays correct
-    fact: Σ DR = Σ CR
-    role: Pessimistic locking, idempotency and a double-entry ledger.
-    viz: lock
+    fact: 1×
+    fact_label: every payment counted exactly once
+
+wins:
+  - value: Minutes → seconds
+    text: Rebuilt slow business reports at Changino so they load in seconds instead of minutes.
+  - value: Used daily
+    text: The finance and operations teams at GSMPay use the reports and Excel exports I built every day.
+  - value: Early warning
+    text: At Carbon, the team gets a Slack alert before the money available for loans runs low.
+  - value: 40+
+    text: Features behind GSMPay's customer, store and payment apps — each one documented and tested.
+
+companies:
+  Carbon OS:
+    name: Carbon OS
+    url: https://carbon.ir
+    note: A financial operating system for small businesses — payments, wallets, and buying power backed by gold, silver and crypto.
+  GSMPay:
+    name: GSMPay
+    url: https://gsmpay.ir
+    note: A lendtech for the mobile phone market — phones and accessories in installments at 7,000+ partner stores.
+  Changino:
+    name: Changino
+    note: Busy, high-traffic web apps. I made slow reports fast.
+  MihanService:
+    name: MihanService
+    note: Modernised an older system and made it faster.
+
+education:
+  - title: MSc, Software Engineering
+    place: University of Guilan, 2021–2024
+  - title: BSc, Software Engineering
+    place: University of Guilan, 2013–2017
 
 research_and_open_source:
-  - kicker: IEEE · ARTMAN @ ACSAC 2024
-    title: Balancing Safety and Security in Autonomous Driving Systems
-    text: Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop.
+  - kicker: Research paper · IEEE · 2024
+    title: Teaching self-driving cars to change lanes safely
+    text: A peer-reviewed paper on an AI that learns to change lanes while always putting safety first.
     url: https://ieeexplore.ieee.org/document/10917620
+    url_label: Read the paper
     repo: https://github.com/Iamafshiin/SafeDriveRL
-  - kicker: github · laravel
-    title: auth + message microservices
-    text: JWT auth and messaging services designed as one system.
+    repo_label: See the code
+  - kicker: Open source · free to reuse
+    title: Sign-in and messaging services
+    text: Two small building blocks any app can reuse — one handles logging in, the other sends messages — designed to work together.
     url: https://github.com/Iamafshiin/auth-microservice
+    url_label: Sign-in code
     repo: https://github.com/Iamafshiin/message-microservice
+    repo_label: Messaging code
 
 contact:
-  heading: Building something that moves money?
+  heading: Want to work together?
+  text: Email is the fastest way to reach me.
+
+ui:
+  lang: en
+  dir: ltr
+  now: now
+  other_lang: fa
+  other_label: فارسی
+  other_title: نسخهٔ فارسی
+  skip: Skip to content
+  nav: {label: Primary, work: Work, about: About, contact: Contact, resume: Resume}
+  see_work: See my work ↓
+  get_in_touch: Get in touch
+  flow:
+    aria: What happens after you tap Pay
+    tap: You tap “Pay”
+    label: Behind the scenes — my part
+    steps:
+      - Is there enough money?
+      - Has this payment already happened?
+      - Check with the bank when needed
+      - Record it on both sides of the books
+    done: Done — paid once, recorded correctly
+  work_eyebrow: Selected work
+  work_heading: Three things I built, and what they did for real people
+  work_note: Product images come from the companies' own websites. The third one is a simple drawing of the idea.
+  read_more: Read the full story
+  wins_eyebrow: More results
+  wins_heading: Smaller wins along the way
+  exp_eyebrow: Experience
+  exp_heading: Where I've worked
+  resume_link: Download the full resume (PDF)
+  edu_eyebrow: Education & research
+  edu_heading: Beyond the day job
+  email: Email
+  resume: Resume (PDF)
+  case:
+    back: ← All work
+    company: Company
+    when: When
+    my_part: My part
+    figcaption: A simple drawing of the idea — not a real screenshot.
+    glance: At a glance
+    built_heading: What I built
+    tech_heading: Technical details
+    how_it_works: How it works
+    tech_sub: For engineers — skip this if you're not one
+    more_work: More work
+    prev: ← Previous
+    next: Next →
+    questions: Questions about this project?
+    email_me: Email me
+    required: [The problem, What I built, How it works, The result, Technical details]
+  mock:
+    credit:
+      title: My savings
+      assets: [[gold, Gold, 120M], [fund, Investment fund, 80M], [crypto, Crypto, 40M]]
+      spend: You can spend now
+      amount: 140,000,000
+      unit: IRR
+      stay: Your savings stay invested
+      button: Buy with credit
+    installments:
+      title: Checkout
+      item: New phone
+      price: 48,000,000 IRR
+      plan: Pay in 4 monthly installments
+      rows: [Today, Next month, In 2 months, In 3 months]
+      amount: 12M
+      approved: ✓ Approved by the bank
+    once:
+      title: Payment
+      button: Pay 2,000,000
+      tap: tap
+      paid: Receipt #A71
+      paid_sub: Paid
+      dup: Receipt #A71 again
+      dup_sub: Already paid — ignored
+      result: Charged once
+      wallet: "Wallet: −2,000,000"

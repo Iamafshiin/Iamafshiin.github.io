@@ -1,0 +1,61 @@
+{# Simplified, made-up app screens that show what the customer sees. Not real screenshots. #}
+{% macro mockup(kind, m) %}
+<div class="phone" aria-hidden="true">
+  <div class="notch"></div>
+{% if kind == "credit" %}
+{% set t = m.credit %}
+  <p class="ph-t">{{ t.title }}</p>
+  <ul class="assets">
+{% for a in t.assets %}
+    <li><i class="c-{{ a[0] }}"></i>{{ a[1] }}<b>{{ a[2] }}</b></li>
+{% endfor %}
+  </ul>
+  <div class="limit">
+    <span>{{ t.spend }}</span>
+    <strong>{{ t.amount }} <small>{{ t.unit }}</small></strong>
+    <div class="bar"><i style="width:58%"></i></div>
+    <em>{{ t.stay }}</em>
+  </div>
+  <span class="ph-btn">{{ t.button }}</span>
+{% elif kind == "installments" %}
+{% set t = m.installments %}
+  <p class="ph-t">{{ t.title }}</p>
+  <div class="item"><span class="thumb"></span><div>{{ t.item }}<small>{{ t.price }}</small></div></div>
+  <p class="ph-s">{{ t.plan }}</p>
+  <ol class="plan">
+{% for row in t.rows %}
+    <li{% if loop.first %} class="done"{% endif %}><i>{{ "✓" if loop.first else loop.index | num }}</i>{{ row }}<b>{{ t.amount }}</b></li>
+{% endfor %}
+  </ol>
+  <span class="ok-pill">{{ t.approved }}</span>
+{% else %}
+{% set t = m.once %}
+  <p class="ph-t">{{ t.title }}</p>
+  <div class="taps"><span class="ph-btn">{{ t.button }}</span><span class="tap">{{ t.tap }}</span><span class="tap">{{ t.tap }}</span></div>
+  <ul class="receipts">
+    <li class="good"><i>✓</i><div>{{ t.paid }}<small>{{ t.paid_sub }}</small></div></li>
+    <li class="dup"><i>↺</i><div>{{ t.dup }}<small>{{ t.dup_sub }}</small></div></li>
+  </ul>
+  <div class="once"><strong>{{ t.result }}</strong><span>{{ t.wallet }}</span></div>
+{% endif %}
+</div>
+{% endmacro %}
+
+{% macro visual(item, m) %}
+{% if item.image is defined %}
+<img class="shot" src="{{ item.image }}" width="{{ item.image_w }}" height="{{ item.image_h }}" alt="{{ item.image_alt }}" loading="lazy" decoding="async">
+{% else %}
+{{ mockup(item.mockup, m) }}
+{% endif %}
+{% endmacro %}
+
+{% macro icon(name) %}
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+{% if name == "pay" %}<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6.5 15h4"/>
+{% elif name == "loan" %}<rect x="3.5" y="4.5" width="17" height="16" rx="2.5"/><path d="M3.5 9h17M8 2.5v4M16 2.5v4M8 13.5l2 2 4-4"/>
+{% else %}<path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/>
+{% endif %}
+</svg>
+{% endmacro %}
+
+{% macro companies(keys, site) %}{% for k in keys %}{% set c = site.companies[k] %}{% if c.url is defined %}<a href="{{ c.url }}" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}{% if not loop.last %} + {% endif %}{% endfor %}{% endmacro %}

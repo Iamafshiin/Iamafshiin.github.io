@@ -1,43 +1,70 @@
 {% extends "base.html.j2" %}
-{% block title %}{{ study.title }} — {{ cv.name }}{% endblock %}
-{% block description %}{{ study.role }} · {{ study.company }} · {{ study.period }}{% endblock %}
-{% block canonical %}<link rel="canonical" href="{{ site.site.url }}/case-studies/{{ study.slug }}/">{% endblock %}
-{% block head %}<script src="/assets/js/case-study.js" defer></script>{% endblock %}
+{% from "_mockup.html.j2" import visual, companies %}
+{% set c = ui.case %}
+{% block title %}{{ study.title }} — {{ site.name }}{% endblock %}
+{% block description %}{{ study.summary }}{% endblock %}
 {% block main %}
-<div class="prog" id="prog" aria-hidden="true"></div>
-<section class="cs-band">
+<section class="cs-head">
   <div class="wrap">
-    <a class="crumb" href="/#work">~/ <b>case-studies</b> / {{ study.slug }}</a>
-    {% set parts = study.title.split(study.highlight, 1) %}
-    <h1>{{ parts[0] }}<span class="hl">{{ study.highlight }}</span>{{ parts[1] }}</h1>
-    <dl>
-      <div><dt>role</dt><dd>{{ study.role }}</dd></div>
-      <div><dt>company</dt><dd>{{ study.company }}</dd></div>
-      <div><dt>period</dt><dd>{{ study.period }}</dd></div>
-      <div><dt>stack</dt><dd class="mono">{{ study.stack | join(" · ") }}</dd></div>
-    </dl>
+    <div>
+      <a class="crumb" href="{{ root }}#work">{{ c.back }}</a>
+      <h1>{{ study.title }}</h1>
+      <p class="sub">{{ study.summary }}</p>
+      <dl>
+        <div><dt>{{ c.company }}</dt><dd>{{ companies(study.companies, site) }}<small>{{ study.company_about }}</small></dd></div>
+        <div><dt>{{ c.when }}</dt><dd>{{ study.period }}</dd></div>
+        <div><dt>{{ c.my_part }}</dt><dd>{{ study.role }}</dd></div>
+      </dl>
+    </div>
+    <figure>
+      {{ visual(study, ui.mock) }}
+      <figcaption>{{ study.image_caption if study.image_caption is defined else c.figcaption }}</figcaption>
+    </figure>
   </div>
 </section>
+
 <div class="wrap cs-body">
-{% for s in study.sections %}
-  <section>
-    <h2><span>{{ "%02d" | format(loop.index) }}</span>{{ s.heading }}</h2>
-    <div class="prose">
-      {{ s.body | safe }}
-{% if s.heading == "approach" and study.diagram is defined and study.diagram == "credit-states" %}
-      {% include "_credit-states.html.j2" %}
-{% endif %}
-    </div>
-  </section>
+  <ul class="stats" aria-label="{{ c.glance }}">
+{% for s in study.stats %}
+    <li><b>{{ s.value }}</b>{{ s.label }}</li>
 {% endfor %}
-  <section>
-    <h2><span>{{ "%02d" | format(study.sections | length + 1) }}</span>stack</h2>
-    <div class="chips">{% for t in study.stack %}<span>{{ t }}</span>{% endfor %}</div>
+  </ul>
+
+{% for s in study.sections %}
+{% if s.heading == c.tech_heading %}
+  <details class="tech" id="{{ s.id }}">
+    <summary><span>{{ c.tech_heading }}</span><small>{{ c.tech_sub }}</small></summary>
+    <div class="prose" dir="ltr" lang="en">
+      {{ s.body | safe }}
+      <h3>Tools</h3>
+      <div class="chips">{% for t in study.stack %}<span>{{ t }}</span>{% endfor %}</div>
+    </div>
+  </details>
+{% else %}
+  <section id="{{ s.id }}">
+    <h2>{{ s.heading }}</h2>
+    <div class="prose">{{ s.body | safe }}</div>
   </section>
-  <nav class="cs-foot" aria-label="More case studies">
-    <a href="/case-studies/{{ study.prev.slug }}/"><small>← previous</small>{{ study.prev.title }}</a>
-    <a class="mail" href="mailto:{{ cv.email }}?subject={{ study.title | urlencode }}"><small>questions about this system?</small>Email me</a>
-    <a class="next" href="/case-studies/{{ study.next.slug }}/"><small>next →</small>{{ study.next.title }}</a>
+{% if s.heading == c.built_heading %}
+  <section id="how-it-works">
+    <h2>{{ c.how_it_works }}</h2>
+    <ol class="steps">
+{% for step in study.steps %}
+      <li><i>{{ loop.index | num }}</i><b>{{ step.title }}</b><span>{{ step.text }}</span></li>
+{% endfor %}
+    </ol>
+  </section>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+  <nav class="cs-foot" aria-label="{{ c.more_work }}">
+    <a href="{{ root }}case-studies/{{ study.prev.slug }}/"><small>{{ c.prev }}</small>{{ study.prev.title }}</a>
+    <a class="next" href="{{ root }}case-studies/{{ study.next.slug }}/"><small>{{ c.next }}</small>{{ study.next.title }}</a>
   </nav>
+  <div class="cs-cta">
+    <p>{{ c.questions }}</p>
+    <a class="btn p" href="mailto:{{ cv.email }}?subject={{ study.title | urlencode }}">{{ c.email_me }}</a>
+  </div>
 </div>
 {% endblock %}
