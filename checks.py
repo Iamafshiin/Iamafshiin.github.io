@@ -85,7 +85,7 @@ def check_pdf(pdf: Path, cv: dict) -> list[str]:
     return errors
 
 
-SECTION_HEADINGS = ["context", "problem", "constraints", "approach", "outcome", "stack"]
+SECTION_HEADINGS = ["the problem", "what i built", "how it works", "the result", "technical details"]
 MOTION = re.compile(r"\b(animation|transition)\s*:|@keyframes")
 
 
@@ -151,7 +151,7 @@ def check_site(site: Path, cv: dict, portfolio: dict) -> list[str]:
     if home is None:
         return errors + ["index.html was not built"]
     for point in portfolio["proof_points"]:
-        for field in ("title", "fact", "role"):
+        for field in ("title", "fact", "fact_label", "role"):
             if point[field] not in home.plain:
                 errors.append(f"[index.html] Proof Point {field} missing from static HTML: {point[field]}")
     for entry in cv["sections"]["experience"]:
@@ -169,10 +169,14 @@ def check_site(site: Path, cv: dict, portfolio: dict) -> list[str]:
             errors.append(f"[case-studies/{path.stem}] page was not built")
             continue
         for heading in SECTION_HEADINGS:
-            if heading not in page.plain:
+            if heading not in page.plain.lower():
                 errors.append(f"[case-studies/{path.stem}] section '{heading}' missing from static HTML")
-        if front["role"] not in page.plain:
-            errors.append(f"[case-studies/{path.stem}] Role line missing from static HTML")
+        for field in ("role", "summary"):
+            if front[field] not in page.plain:
+                errors.append(f"[case-studies/{path.stem}] {field} missing from static HTML")
+        for step in front["steps"]:
+            if step["title"] not in page.plain:
+                errors.append(f"[case-studies/{path.stem}] step missing from static HTML: {step['title']}")
     if not any(p.relative_to(site).as_posix() in portfolio["site"]["resume_path"] for p in site.glob("*.pdf")):
         errors.append(f"Resume PDF missing at {portfolio['site']['resume_path']}")
 

@@ -1,5 +1,3 @@
-import hashlib
-import random
 import shutil
 import sys
 from datetime import date
@@ -22,7 +20,8 @@ def split_sections(html: str) -> list[dict]:
     sections = []
     for chunk in html.split("<h2>")[1:]:
         heading, body = chunk.split("</h2>", 1)
-        sections.append({"heading": heading.strip().lower(), "body": body.strip()})
+        heading = heading.strip()
+        sections.append({"heading": heading, "id": heading.lower().replace(" ", "-"), "body": body.strip()})
     return sections
 
 
@@ -40,43 +39,22 @@ def load_case_studies() -> list[dict]:
     return studies
 
 
-def commit_hash(text: str) -> str:
-    return hashlib.sha1(text.encode()).hexdigest()[:7]
-
-
-def experience_log(cv: dict) -> list[dict]:
-    log = []
+def career(cv: dict, notes: dict) -> list[dict]:
+    rows = []
     for entry in cv["sections"]["experience"]:
         if "start_date" not in entry:
             continue
-        year, month = str(entry["start_date"]).split("-")
-        log.append(
+        start = str(entry["start_date"])[:4]
+        end = "now" if entry["end_date"] == "present" else str(entry["end_date"])[:4]
+        rows.append(
             {
-                "hash": commit_hash(entry["company"]),
-                "date": f"{year}-{month}",
                 "company": entry["company"],
                 "position": entry["position"],
-                "summary": entry.get("summary", ""),
-                "current": entry.get("end_date") == "present",
+                "years": f"{start} – {end}",
+                "note": notes.get(entry["company"], ""),
+                "current": end == "now",
             }
         )
-    return log
-
-
-def ledger_rows(accounts: list[str], count: int = 8) -> list[dict]:
-    rng = random.Random(7)
-    rows = []
-    for _ in range(count):
-        roll = rng.random()
-        tx = f"tx_{rng.getrandbits(16):04x}"
-        if roll < 0.14:
-            rows.append({"kind": "replay", "tx": tx, "key": f"{rng.getrandbits(24):06x}"})
-        elif roll < 0.26:
-            rows.append({"kind": "lock", "tx": tx, "account": rng.choice(accounts), "wait": f"{rng.uniform(1, 9):.1f}"})
-        else:
-            debit, credit = rng.sample(accounts, 2)
-            amount = rng.randint(50_000, 4_000_000)
-            rows.append({"kind": "post", "tx": tx, "debit": debit, "credit": credit, "amount": amount})
     return rows
 
 
@@ -96,7 +74,6 @@ def build() -> None:
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    env.filters["thousands"] = lambda n: f"{n:,}"
     ctx = {"cv": cv, "site": site, "studies": studies, "year": date.today().year}
 
     OUT.mkdir(exist_ok=True)
@@ -104,16 +81,7 @@ def build() -> None:
         shutil.rmtree(child) if child.is_dir() else child.unlink()
     shutil.copytree(ROOT / "site" / "static", OUT, dirs_exist_ok=True)
 
-    rows = ledger_rows(site["ledger"]["accounts"])
-    total = sum(r["amount"] for r in rows if r["kind"] == "post")
-    home = env.get_template("home.html.j2").render(
-        **ctx,
-        page="home",
-        log=experience_log(cv),
-        ledger=rows,
-        ledger_total=total,
-        replays=sum(r["kind"] == "replay" for r in rows),
-    )
+    home = env.get_template("home.html.j2").render(**ctx, page="home", career=career(cv, site["career_notes"]))
     (OUT / "index.html").write_text(home, encoding="utf-8")
 
     for study in studies:

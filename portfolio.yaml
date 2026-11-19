@@ -1,60 +1,96 @@
 site:
   url: https://iamafshiin.github.io
-  title: Afshin Hasani — Senior Backend Engineer, Payments & Lending
-  description: Senior backend engineer building lending and payment systems in PHP/Laravel — collateral-backed credit, BNPL lending, and money movement that stays correct under concurrency.
+  title: Afshin Hasani — I build the systems behind payment and lending apps
+  description: Afshin Hasani builds the behind-the-scenes systems that let people pay, borrow and buy in installments — safely. 6+ years at fintech companies.
   resume_path: /afshin-hasani-resume.pdf
   linkedin: https://www.linkedin.com/in/afshin-hasani/
   github: https://github.com/Iamafshiin
 
 hero:
-  tag: senior backend engineer — payments & lending
-  lead: "Senior backend engineer building "
-  highlight: lending and payment systems.
-  sub_strong: PHP · Laravel · Distributed systems
-  sub: — 6+ years making money move correctly under concurrency.
+  hello: Hi, I'm Afshin.
+  lead: "I build the engine behind apps that let people "
+  highlight: pay, borrow and buy in installments.
+  sub: You see the app's buttons. I build what happens after you tap them — checking the balance, talking to the bank, and making sure every rial lands in the right place.
+  facts:
+    - value: 6+ years
+      label: building money apps
+    - value: 7,000+
+      label: stores using my loan system
+    - value: MSc
+      label: in software engineering
 
-ledger:
-  accounts:
-    - wallet:user_291
-    - wallet:user_884
-    - escrow:order_77
-    - loan:bnpl_4410
-    - settle:bank_01
-    - fees:platform
-    - collat:fund_12
-    - wallet:merchant_31
+explainer:
+  heading: What I do, in plain words
+  analogy: "Think of an app like a restaurant. The screen you tap is the dining room. I work in the kitchen — the part customers never see, but the part that decides whether their order arrives right."
+  items:
+    - icon: pay
+      title: Payments
+      text: Money goes from A to B exactly once — never lost, never charged twice.
+    - icon: loan
+      title: Loans & installments
+      text: Work out how much someone can borrow, split it into monthly payments, and keep track of every payment.
+    - icon: bank
+      title: Connecting to banks
+      text: The app checks things with banks and investment platforms automatically, so customers don't fill in forms or wait in line.
 
 proof_points:
   - slug: carbon-collateral-credit
-    kicker: 01 / carbon · 2026 –
-    title: Collateral-backed credit
-    fact: 4 brokerage APIs
-    role: "Designed and shipped the credit system: purchasing power, margin protection, liquidation."
-    viz: gauge
+    title: Borrow money without selling your savings
+    company: Carbon OS
+    period: 2026 – now
+    role: I designed and built the whole credit system, from start to finish.
+    fact: "4"
+    fact_label: investment platforms connected
+    mockup: credit
   - slug: gsmpay-bnpl
-    kicker: 02 / gsmpay · 2024 – 2026
-    title: BNPL lending flows
-    fact: 7,000+ stores
-    role: Built core origination, installment scheduling and partner-bank approval.
-    viz: installments
+    title: Buy now, pay in monthly installments
+    company: GSMPay
+    period: 2024 – 2026
+    role: I built the core of the loan process — applying, bank approval, the payment schedule and the contract.
+    fact: 7,000+
+    fact_label: partner stores
+    mockup: installments
   - slug: money-movement
-    kicker: 03 / carbon + gsmpay
-    title: Money movement that stays correct
-    fact: Σ DR = Σ CR
-    role: Pessimistic locking, idempotency and a double-entry ledger.
-    viz: lock
+    title: Making sure nobody is charged twice
+    company: Carbon OS + GSMPay
+    period: 2024 – now
+    role: I built the safety rules both companies use for wallet payments.
+    fact: 1×
+    fact_label: every payment counted exactly once
+    mockup: once
+
+wins:
+  - value: Minutes → seconds
+    text: Rebuilt slow business reports at Changino so they load in seconds instead of minutes.
+  - value: Used daily
+    text: The finance and operations teams at GSMPay use the reports and Excel exports I built every day.
+  - value: Early warning
+    text: At Carbon, the team gets a Slack alert before the money available for loans runs low.
+  - value: 40+
+    text: Features behind GSMPay's customer, store and payment apps — each one documented and tested.
+
+career_notes:
+  Carbon OS: A financial app for small businesses — payments, wallets and credit.
+  GSMPay: Buy now, pay later at 7,000+ partner stores.
+  Changino: Busy, high-traffic web apps. I made slow reports fast.
+  MihanService: Modernised an older system and made it faster.
 
 research_and_open_source:
-  - kicker: IEEE · ARTMAN @ ACSAC 2024
-    title: Balancing Safety and Security in Autonomous Driving Systems
-    text: Reinforcement learning (PPO) for safety-aware lane changing under a MAPE-K runtime adaptation loop.
+  - kicker: Research paper · IEEE · 2024
+    title: Teaching self-driving cars to change lanes safely
+    text: A peer-reviewed paper on an AI that learns to change lanes while always putting safety first.
     url: https://ieeexplore.ieee.org/document/10917620
+    url_label: Read the paper
     repo: https://github.com/Iamafshiin/SafeDriveRL
-  - kicker: github · laravel
-    title: auth + message microservices
-    text: JWT auth and messaging services designed as one system.
+    repo_label: See the code
+  - kicker: Open source · free to reuse
+    title: Sign-in and messaging services
+    text: Two small building blocks any app can reuse — one handles logging in, the other sends messages — designed to work together.
     url: https://github.com/Iamafshiin/auth-microservice
+    url_label: Sign-in code
     repo: https://github.com/Iamafshiin/message-microservice
+    repo_label: Messaging code
 
 contact:
-  heading: Building something that moves money?
+  heading: Want to work together?
+  text: Email is the fastest way to reach me.

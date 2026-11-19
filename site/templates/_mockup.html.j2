@@ -1,0 +1,49 @@
+{# Simplified, made-up app screens that show what the customer sees. Not real screenshots. #}
+{% macro mockup(kind) %}
+<div class="phone" aria-hidden="true">
+  <div class="notch"></div>
+{% if kind == "credit" %}
+  <p class="ph-t">My savings</p>
+  <ul class="assets">
+    <li><i class="c-gold"></i>Gold<b>120M</b></li>
+    <li><i class="c-fund"></i>Investment fund<b>80M</b></li>
+    <li><i class="c-crypto"></i>Crypto<b>40M</b></li>
+  </ul>
+  <div class="limit">
+    <span>You can spend now</span>
+    <strong>140,000,000 <small>IRR</small></strong>
+    <div class="bar"><i style="width:58%"></i></div>
+    <em>Your savings stay invested</em>
+  </div>
+  <span class="ph-btn">Buy with credit</span>
+{% elif kind == "installments" %}
+  <p class="ph-t">Checkout</p>
+  <div class="item"><span class="thumb"></span><div>New phone<small>48,000,000 IRR</small></div></div>
+  <p class="ph-s">Pay in 4 monthly installments</p>
+  <ol class="plan">
+    <li class="done"><i>✓</i>Today<b>12M</b></li>
+    <li><i>2</i>Next month<b>12M</b></li>
+    <li><i>3</i>In 2 months<b>12M</b></li>
+    <li><i>4</i>In 3 months<b>12M</b></li>
+  </ol>
+  <span class="ok-pill">✓ Approved by the bank</span>
+{% else %}
+  <p class="ph-t">Payment</p>
+  <div class="taps"><span class="ph-btn">Pay 2,000,000</span><span class="tap">tap</span><span class="tap">tap</span></div>
+  <ul class="receipts">
+    <li class="good"><i>✓</i><div>Receipt #A71<small>Paid</small></div></li>
+    <li class="dup"><i>↺</i><div>Receipt #A71 again<small>Already paid — ignored</small></div></li>
+  </ul>
+  <div class="once"><strong>Charged once</strong><span>Wallet: −2,000,000</span></div>
+{% endif %}
+</div>
+{% endmacro %}
+
+{% macro icon(name) %}
+<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+{% if name == "pay" %}<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6.5 15h4"/>
+{% elif name == "loan" %}<rect x="3.5" y="4.5" width="17" height="16" rx="2.5"/><path d="M3.5 9h17M8 2.5v4M16 2.5v4M8 13.5l2 2 4-4"/>
+{% else %}<path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/>
+{% endif %}
+</svg>
+{% endmacro %}
