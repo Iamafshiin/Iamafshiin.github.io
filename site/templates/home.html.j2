@@ -20,7 +20,7 @@
 <section class="wrap hero{% if flow %} solo{% endif %}">
   <div class="hero-text">
     <p class="hello">{{ site.hero.hello }}</p>
-    <h1>{{ site.hero.lead }}{% if site.hero.highlight_block is defined %}<span class="hl block">{{ site.hero.highlight }}</span>{% else %}<span class="hl">{{ site.hero.highlight }}</span>{% endif %}</h1>
+    <h1>{{ site.hero.lead }}{% if site.hero.highlight_block is defined %} <span class="hl block">{{ site.hero.highlight }}</span>{% else %}<span class="hl">{{ site.hero.highlight }}</span>{% endif %}</h1>
 {% if site.hero.greeting is defined %}
     <p class="greet">{{ site.hero.greeting }}</p>
 {% endif %}
@@ -45,7 +45,7 @@
 {% if flow %}
 <section class="band" id="about" aria-labelledby="about-h">
   <div class="wrap pay-flow">
-    <div>
+    <div class="pay-text">
       <h2 id="about-h">{{ flow.heading }}</h2>
       <p class="lead">{{ flow.intro }}</p>
       {{ paras(flow.outro) }}

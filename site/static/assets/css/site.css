@@ -54,8 +54,8 @@ h3{font-size:21px}
 .greet+.sub{margin-top:8px}
 .sub+.sub{margin-top:12px}
 .pay-flow{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
-.pay-flow .lead{font-size:19px;margin:14px 0 18px;color:var(--ink)}
-.pay-flow p:not(.lead){color:var(--dim);margin-top:12px;max-width:60ch}
+.pay-text .lead{font-size:19px;margin:14px 0 18px;color:var(--ink)}
+.pay-text p:not(.lead){color:var(--dim);margin-top:12px;max-width:60ch}
 .pay-flow .flow{justify-self:center}
 .os-grid{grid-template-columns:1fr 1fr;margin-top:28px}
 .flow{width:100%;max-width:360px;display:grid;gap:0;justify-items:center}
