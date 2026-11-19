@@ -47,6 +47,17 @@ h3{font-size:21px}
 .facts li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--dim);min-width:150px}
 .facts b{display:block;font-family:var(--head);font-size:24px;color:var(--ink)}
 .hero-art{display:flex;justify-content:center}
+.hero.solo{grid-template-columns:1fr}
+.hero.solo .hero-text{max-width:820px}
+.hl.block{display:block}
+.greet{font-size:20px;font-weight:600;margin-top:22px}
+.greet+.sub{margin-top:8px}
+.sub+.sub{margin-top:12px}
+.pay-flow{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.pay-flow .lead{font-size:19px;margin:14px 0 18px;color:var(--ink)}
+.pay-flow p:not(.lead){color:var(--dim);margin-top:12px;max-width:60ch}
+.pay-flow .flow{justify-self:center}
+.os-grid{grid-template-columns:1fr 1fr;margin-top:28px}
 .flow{width:100%;max-width:360px;display:grid;gap:0;justify-items:center}
 .flow-top .ph-btn{padding:13px 26px;border-radius:999px;font-size:16px;box-shadow:0 12px 30px -12px rgba(52,81,209,.6)}
 .flow-mid{width:100%;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 22px;margin:22px 0;position:relative}
@@ -100,6 +111,7 @@ h3{font-size:21px}
 .career p:not(.who){color:var(--dim);font-size:15px}
 .edu{margin:24px 0}
 .edu li{padding:6px 0;color:var(--dim)}
+.edu li span{display:block;font-size:15px}
 .edu b{color:var(--ink)}
 .os{display:grid;gap:16px}
 .os article{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
@@ -226,7 +238,7 @@ figcaption{font-size:13px;color:var(--dim);text-align:center;padding:0 12px}
 [dir=rtl] .nav .lang{font-family:Inter,sans-serif}
 
 @media (max-width:900px){
-  .hero,.cs-head .wrap,.two{grid-template-columns:1fr}
+  .hero,.cs-head .wrap,.two,.pay-flow,.os-grid{grid-template-columns:1fr}
   .hero{padding-top:44px;gap:40px}
   .what,.wins{grid-template-columns:1fr 1fr}
   .project,.project:nth-child(even){grid-template-columns:1fr;padding:24px;gap:24px}
