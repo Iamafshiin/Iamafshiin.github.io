@@ -1,11 +1,30 @@
 {% extends "base.html.j2" %}
 {% from "_mockup.html.j2" import visual, icon, companies %}
+{% macro paras(text, cls="") %}{% if text is string %}<p{% if cls %} class="{{ cls }}"{% endif %}>{{ text }}</p>{% else %}{% for t in text %}<p{% if cls %} class="{{ cls }}"{% endif %}>{{ t }}</p>{% endfor %}{% endif %}{% endmacro %}
+{% macro flow_figure(steps, numbered) %}
+    <figure class="flow" aria-label="{{ ui.flow.aria }}">
+      <p class="flow-top"><span class="ph-btn">{{ ui.flow.tap }}</span></p>
+      <div class="flow-mid">
+        <p class="flow-label">{{ ui.flow.label }}</p>
+        <ol>
+{% for step in steps %}
+          <li><i>{{ loop.index | num if numbered else "✓" }}</i>{{ step }}</li>
+{% endfor %}
+        </ol>
+      </div>
+      <p class="flow-end">{{ ui.flow.done }}</p>
+    </figure>
+{% endmacro %}
+{% set flow = site.payment_flow if site.payment_flow is defined else none %}
 {% block main %}
-<section class="wrap hero">
+<section class="wrap hero{% if flow %} solo{% endif %}">
   <div class="hero-text">
     <p class="hello">{{ site.hero.hello }}</p>
-    <h1>{{ site.hero.lead }}<span class="hl">{{ site.hero.highlight }}</span></h1>
-    <p class="sub">{{ site.hero.sub }}</p>
+    <h1>{{ site.hero.lead }}{% if site.hero.highlight_block is defined %} <span class="hl block">{{ site.hero.highlight }}</span>{% else %}<span class="hl">{{ site.hero.highlight }}</span>{% endif %}</h1>
+{% if site.hero.greeting is defined %}
+    <p class="greet">{{ site.hero.greeting }}</p>
+{% endif %}
+    {{ paras(site.hero.sub, "sub") }}
     <div class="cta">
       <a class="btn p" href="#work">{{ ui.see_work }}</a>
       <a class="btn s" href="#contact">{{ ui.get_in_touch }}</a>
@@ -16,26 +35,32 @@
 {% endfor %}
     </ul>
   </div>
+{% if not flow %}
   <div class="hero-art">
-    <figure class="flow" aria-label="{{ ui.flow.aria }}">
-      <p class="flow-top"><span class="ph-btn">{{ ui.flow.tap }}</span></p>
-      <div class="flow-mid">
-        <p class="flow-label">{{ ui.flow.label }}</p>
-        <ol>
-{% for step in ui.flow.steps %}
-          <li><i>✓</i>{{ step }}</li>
-{% endfor %}
-        </ol>
-      </div>
-      <p class="flow-end">{{ ui.flow.done }}</p>
-    </figure>
+    {{ flow_figure(ui.flow.steps, false) }}
   </div>
+{% endif %}
 </section>
 
+{% if flow %}
 <section class="band" id="about" aria-labelledby="about-h">
-  <div class="wrap">
-    <h2 id="about-h">{{ site.explainer.heading }}</h2>
+  <div class="wrap pay-flow">
+    <div class="pay-text">
+      <h2 id="about-h">{{ flow.heading }}</h2>
+      <p class="lead">{{ flow.intro }}</p>
+      {{ paras(flow.outro) }}
+    </div>
+    {{ flow_figure(flow.steps, true) }}
+  </div>
+</section>
+{% endif %}
+
+<section class="{{ 'wrap sec' if flow else 'band' }}"{% if not flow %} id="about"{% endif %} aria-labelledby="areas-h">
+  <div{% if not flow %} class="wrap"{% endif %}>
+    <h2 id="areas-h">{{ site.explainer.heading }}</h2>
+{% if site.explainer.analogy is defined %}
     <p class="analogy">{{ site.explainer.analogy }}</p>
+{% endif %}
     <div class="what">
 {% for item in site.explainer["items"] %}
       <article>
@@ -57,15 +82,16 @@
     <article class="project">
       <figure class="project-art">
         {{ visual(p, ui.mock) }}
-{% if p.image_caption is defined %}
-        <figcaption>{{ p.image_caption }}</figcaption>
-{% endif %}
+        <figcaption>{{ p.image_caption if p.image_caption is defined else ui.case.figcaption }}</figcaption>
       </figure>
       <div class="project-text">
-        <p class="meta">{{ companies(p.companies, site) }} · {{ p.period }}</p>
+        <p class="meta">{{ companies(p.companies, site, ui) }} · {{ p.period }}</p>
         <h3><a href="{{ root }}case-studies/{{ p.slug }}/">{{ p.title }}</a></h3>
         <p class="role">{{ p.role }}</p>
-        <p class="fact"><b>{{ p.fact }}</b><span>{{ p.fact_label }}</span></p>
+{% if p.extra is defined %}
+        <p class="role">{{ p.extra }}</p>
+{% endif %}
+        <p class="fact">{% if p.fact %}<b>{{ p.fact }}</b>{% endif %}<span>{{ p.fact_label }}</span></p>
         <a class="more" href="{{ root }}case-studies/{{ p.slug }}/">{{ ui.read_more }} <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </article>
@@ -74,7 +100,9 @@
 </section>
 
 <section class="wrap sec" aria-labelledby="wins-h">
+{% if ui.wins_eyebrow %}
   <p class="eyebrow">{{ ui.wins_eyebrow }}</p>
+{% endif %}
   <h2 id="wins-h">{{ ui.wins_heading }}</h2>
   <ul class="wins">
 {% for w in site.wins %}
@@ -91,7 +119,7 @@
 {% for c in career %}
       <li{% if c.current %} class="now"{% endif %}>
         <span class="yrs">{{ c.years | num }}</span>
-        <div><p class="who">{{ companies([c.key], site) }} — {{ c.position }}</p><p>{{ c.note }}</p></div>
+        <div><p class="who">{{ companies([c.key], site, ui) }}{{ ui.career_sep }}{{ c.position }}</p><p>{{ c.note }}</p></div>
       </li>
 {% endfor %}
     </ol>
@@ -102,28 +130,42 @@
     <h2>{{ ui.edu_heading }}</h2>
     <ul class="edu">
 {% for e in site.education %}
-      <li><b>{{ e.title }}</b> — {{ e.place }}</li>
+      <li><b>{{ e.title }}</b><span>{{ e.place }}</span></li>
 {% endfor %}
     </ul>
     <div class="os">
-{% for o in site.research_and_open_source %}
+{% for o in site.research %}
       <article>
         <small>{{ o.kicker }}</small>
         <h3>{{ o.title }}</h3>
         <p>{{ o.text }}</p>
-        <p class="links"><a href="{{ o.url }}" rel="noopener">{{ o.url_label }} <span class="arr" aria-hidden="true">→</span></a><a href="{{ o.repo }}" rel="noopener">{{ o.repo_label }} <span class="arr" aria-hidden="true">→</span></a></p>
+        <p class="links">{% for l in o.links %}<a href="{{ l.url }}" rel="noopener">{{ l.label }} <span class="arr" aria-hidden="true">→</span></a>{% endfor %}</p>
       </article>
 {% endfor %}
     </div>
   </div>
 </section>
 
+<section class="wrap sec" id="open-source" aria-labelledby="os-h">
+  <p class="eyebrow">{{ site.open_source.eyebrow }}</p>
+  <h2 id="os-h">{{ site.open_source.heading }}</h2>
+  <div class="os os-grid">
+{% for o in site.open_source["items"] %}
+    <article>
+      <h3>{{ o.title }}</h3>
+      <p>{{ o.text }}</p>
+      <p class="links"><a href="{{ o.url }}" rel="noopener">{{ o.label }} <span class="arr" aria-hidden="true">→</span></a></p>
+    </article>
+{% endfor %}
+  </div>
+</section>
+
 <section class="contact" id="contact" aria-labelledby="contact-h">
   <div class="wrap">
     <h2 id="contact-h">{{ site.contact.heading }}</h2>
-    <p>{{ site.contact.text }}</p>
+    {{ paras(site.contact.text) }}
     <a class="btn p big" href="mailto:{{ cv.email }}" dir="ltr">{{ cv.email }}</a>
-    <p class="links"><a href="{{ site.site.linkedin }}" rel="me noopener">LinkedIn</a><a href="{{ site.site.resume_path }}">{{ ui.resume }}</a><a href="{{ site.site.github }}" rel="me noopener">GitHub</a></p>
+    <p class="links"><a href="{{ site.site.linkedin }}" rel="me noopener">LinkedIn</a><a href="{{ site.site.github }}" rel="me noopener">GitHub</a><a href="{{ site.site.resume_path }}">{{ ui.resume }}</a></p>
   </div>
 </section>
 {% endblock %}

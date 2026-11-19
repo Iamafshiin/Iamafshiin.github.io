@@ -78,21 +78,26 @@ education:
   - title: BSc, Software Engineering
     place: University of Guilan, 2013–2017
 
-research_and_open_source:
+research:
   - kicker: Research paper · IEEE · 2024
     title: Teaching self-driving cars to change lanes safely
     text: A peer-reviewed paper on an AI that learns to change lanes while always putting safety first.
-    url: https://ieeexplore.ieee.org/document/10917620
-    url_label: Read the paper
-    repo: https://github.com/Iamafshiin/SafeDriveRL
-    repo_label: See the code
-  - kicker: Open source · free to reuse
-    title: Sign-in and messaging services
-    text: Two small building blocks any app can reuse — one handles logging in, the other sends messages — designed to work together.
-    url: https://github.com/Iamafshiin/auth-microservice
-    url_label: Sign-in code
-    repo: https://github.com/Iamafshiin/message-microservice
-    repo_label: Messaging code
+    links:
+      - {url: "https://ieeexplore.ieee.org/document/10917620", label: Read the paper}
+      - {url: "https://github.com/Iamafshiin/SafeDriveRL", label: See the code}
+
+open_source:
+  eyebrow: Open source
+  heading: Free to reuse, on GitHub
+  items:
+    - title: Laravel Authentication Microservice
+      text: A small building block any app can reuse to handle logging in, built with Laravel and JWT.
+      url: https://github.com/Iamafshiin/auth-microservice
+      label: See the sign-in project
+    - title: Laravel Message Microservice
+      text: A separate service that sends messages, designed to work alongside the sign-in service.
+      url: https://github.com/Iamafshiin/message-microservice
+      label: See the messaging project
 
 contact:
   heading: Want to work together?
@@ -102,6 +107,8 @@ ui:
   lang: en
   dir: ltr
   now: now
+  and: " + "
+  career_sep: " — "
   other_lang: fa
   other_label: فارسی
   other_title: نسخهٔ فارسی

@@ -161,7 +161,7 @@ def check_lang(site: Path, pages: dict, cv: dict, prefix: str, portfolio: dict) 
         if "start_date" not in entry:
             continue
         info = portfolio["companies"].get(entry["company"], {})
-        line = f"{info.get('name', entry['company'])} — {info.get('position', entry['position'])}"
+        line = f"{info.get('name', entry['company'])}{portfolio['ui']['career_sep']}{info.get('position', entry['position'])}"
         if line not in home.plain:
             errors.append(f"[{label}index.html] role line missing from static HTML: {line}")
 

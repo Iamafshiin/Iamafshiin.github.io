@@ -11,7 +11,7 @@
       <h1>{{ study.title }}</h1>
       <p class="sub">{{ study.summary }}</p>
       <dl>
-        <div><dt>{{ c.company }}</dt><dd>{{ companies(study.companies, site) }}<small>{{ study.company_about }}</small></dd></div>
+        <div><dt>{{ c.company }}</dt><dd>{{ companies(study.companies, site, ui) }}<small>{{ study.company_about }}</small></dd></div>
         <div><dt>{{ c.when }}</dt><dd>{{ study.period }}</dd></div>
         <div><dt>{{ c.my_part }}</dt><dd>{{ study.role }}</dd></div>
       </dl>

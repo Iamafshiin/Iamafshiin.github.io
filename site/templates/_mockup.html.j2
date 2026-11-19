@@ -58,4 +58,4 @@
 </svg>
 {% endmacro %}
 
-{% macro companies(keys, site) %}{% for k in keys %}{% set c = site.companies[k] %}{% if c.url is defined %}<a href="{{ c.url }}" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}{% if not loop.last %} + {% endif %}{% endfor %}{% endmacro %}
+{% macro companies(keys, site, ui) %}{% for k in keys %}{% set c = site.companies[k] %}{% if c.url is defined %}<a href="{{ c.url }}" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}{% if not loop.last %}{{ ui.and }}{% endif %}{% endfor %}{% endmacro %}
