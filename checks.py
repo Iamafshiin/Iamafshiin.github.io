@@ -8,6 +8,8 @@ from pathlib import Path
 import yaml
 from pypdf import PdfReader
 
+from build import load_case_studies, proof_points
+
 ROOT = Path(__file__).parent
 EXPECTED_PAGES = 2
 DATE_RANGE = r"(?:[A-Z][a-z]+ )?(?P<start>\d{4}) – (?:present|(?:[A-Z][a-z]+ )?\d{4})"
@@ -149,7 +151,8 @@ def check_lang(site: Path, pages: dict, cv: dict, prefix: str, portfolio: dict) 
         return [f"{label}index.html was not built"]
     if f'lang="{portfolio["ui"]["lang"]}"' not in (out / "index.html").read_text(encoding="utf-8"):
         errors.append(f"[{label}index.html] html lang is not {portfolio['ui']['lang']}")
-    for point in portfolio["proof_points"]:
+    studies = {s["slug"]: s for s in load_case_studies(portfolio["ui"]["lang"])}
+    for point in proof_points(portfolio, list(studies.values()), portfolio["ui"]["lang"]):
         for field in ("title", "fact", "fact_label", "role"):
             if point[field] not in home.plain:
                 errors.append(f"[{label}index.html] project {field} missing from static HTML: {point[field]}")

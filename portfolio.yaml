@@ -23,7 +23,7 @@ hero:
 
 explainer:
   heading: What I do, in plain words
-  analogy: "Think of an app like a restaurant. The screen you tap is the dining room. I work in the kitchen — the part customers never see, but the part that decides whether their order arrives right."
+  analogy: "Every app has two parts. The front end is the screens you see and tap. The back end is the servers and logic behind those screens. I build the back end — the part customers never see, but the part that decides whether their money and data end up in the right place."
   items:
     - icon: pay
       title: Payments
@@ -37,39 +37,14 @@ explainer:
 
 proof_points:
   - slug: carbon-collateral-credit
-    title: Borrow money without selling your savings
-    companies: [Carbon OS]
-    period: 2026 – now
-    role: I designed and built the whole credit system, from start to finish.
     fact: "4"
     fact_label: investment platforms connected
-    mockup: credit
-    image: /assets/work/carbon-app.webp
-    image_w: 253
-    image_h: 315
-    image_alt: "Carbon app: paying a store from the cash wallet, the investment wallet and monthly credit in one payment"
-    image_caption: "The Carbon app — image from carbon.ir"
   - slug: gsmpay-bnpl
-    title: Buy now, pay in monthly installments
-    companies: [GSMPay]
-    period: 2024 – 2026
-    role: I built the core of the loan process — applying, bank approval, the payment schedule and the contract.
     fact: 7,000+
     fact_label: partner stores
-    mockup: installments
-    image: /assets/work/gsmpay-credit.webp
-    image_w: 358
-    image_h: 855
-    image_alt: "GSMPay credit request: choose an amount, a 12- or 24-month plan and a bank, then see each installment"
-    image_caption: "Credit request on GSMPay — image from gsmpay.ir"
   - slug: money-movement
-    title: Making sure nobody is charged twice
-    companies: [Carbon OS, GSMPay]
-    period: 2024 – now
-    role: I built the safety rules both companies use for wallet payments.
     fact: 1×
     fact_label: every payment counted exactly once
-    mockup: once
 
 wins:
   - value: Minutes → seconds
@@ -168,7 +143,6 @@ ui:
     tech_heading: Technical details
     how_it_works: How it works
     tech_sub: For engineers — skip this if you're not one
-    tools: Tools
     more_work: More work
     prev: ← Previous
     next: Next →

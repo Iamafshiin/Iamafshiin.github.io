@@ -26,6 +26,8 @@ def split_sections(html: str) -> list[dict]:
 
 
 LANGS = {"en": "", "fa": "fa"}
+# A project card shows these fields from its Case Study, so they are written once, in the Case Study frontmatter.
+SHARED_FIELDS = ("title", "companies", "period", "role", "mockup", "image", "image_w", "image_h", "image_alt", "image_caption")
 FA_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 
 
@@ -90,14 +92,25 @@ def make_env(lang: str) -> Environment:
     return env
 
 
+def proof_points(site: dict, studies: list[dict], lang: str) -> list[dict]:
+    by_slug = {s["slug"]: s for s in studies}
+    points = []
+    for point in site["proof_points"]:
+        study = by_slug.get(point["slug"])
+        if study is None:
+            sys.exit(f"[{lang}] Proof Point without a Case Study: {point['slug']}")
+        duplicated = [f for f in SHARED_FIELDS if f in point]
+        if duplicated:
+            sys.exit(f"[{lang}] Proof Point {point['slug']} repeats {', '.join(duplicated)}; set it in the Case Study only")
+        points.append({**{f: study[f] for f in SHARED_FIELDS if f in study}, **point})
+    return points
+
+
 def build_lang(cv: dict, lang: str) -> int:
     env = make_env(lang)
     site = load_portfolio(lang)
     studies = load_case_studies(lang)
-    slugs = {s["slug"] for s in studies}
-    missing = [p["slug"] for p in site["proof_points"] if p["slug"] not in slugs]
-    if missing:
-        sys.exit(f"[{lang}] Proof Point without a Case Study: {', '.join(missing)}")
+    site["proof_points"] = proof_points(site, studies, lang)
 
     root = f"/{LANGS[lang]}/" if LANGS[lang] else "/"
     other_root = f"/{LANGS[site['ui']['other_lang']]}/".replace("//", "/")
