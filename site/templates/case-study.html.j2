@@ -1,5 +1,5 @@
 {% extends "base.html.j2" %}
-{% from "_mockup.html.j2" import mockup, companies %}
+{% from "_mockup.html.j2" import visual, companies %}
 {% set c = ui.case %}
 {% block title %}{{ study.title }} — {{ site.name }}{% endblock %}
 {% block description %}{{ study.summary }}{% endblock %}
@@ -17,8 +17,8 @@
       </dl>
     </div>
     <figure>
-      {{ mockup(study.mockup, ui.mock) }}
-      <figcaption>{{ c.figcaption }}</figcaption>
+      {{ visual(study, ui.mock) }}
+      <figcaption>{{ study.image_caption if study.image_caption is defined else c.figcaption }}</figcaption>
     </figure>
   </div>
 </section>

@@ -41,6 +41,14 @@
 </div>
 {% endmacro %}
 
+{% macro visual(item, m) %}
+{% if item.image is defined %}
+<img class="shot" src="{{ item.image }}" width="{{ item.image_w }}" height="{{ item.image_h }}" alt="{{ item.image_alt }}" loading="lazy" decoding="async">
+{% else %}
+{{ mockup(item.mockup, m) }}
+{% endif %}
+{% endmacro %}
+
 {% macro icon(name) %}
 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 {% if name == "pay" %}<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6.5 15h4"/>

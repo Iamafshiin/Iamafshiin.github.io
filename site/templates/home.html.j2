@@ -1,5 +1,5 @@
 {% extends "base.html.j2" %}
-{% from "_mockup.html.j2" import mockup, icon, companies %}
+{% from "_mockup.html.j2" import visual, icon, companies %}
 {% block main %}
 <section class="wrap hero">
   <div class="hero-text">
@@ -55,7 +55,12 @@
   <div class="projects">
 {% for p in site.proof_points %}
     <article class="project">
-      <div class="project-art">{{ mockup(p.mockup, ui.mock) }}</div>
+      <figure class="project-art">
+        {{ visual(p, ui.mock) }}
+{% if p.image_caption is defined %}
+        <figcaption>{{ p.image_caption }}</figcaption>
+{% endif %}
+      </figure>
       <div class="project-text">
         <p class="meta">{{ companies(p.companies, site) }} · {{ p.period }}</p>
         <h3><a href="{{ root }}case-studies/{{ p.slug }}/">{{ p.title }}</a></h3>

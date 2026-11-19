@@ -14,7 +14,7 @@ hero:
     - value: بیش از ۶ سال
       label: سابقه در بک‌اند سیستم‌های مالی
     - value: بیش از ۷٬۰۰۰
-      label: فروشگاه پذیرندهٔ سیستم اقساطی که روی آن کار کردم
+      label: فروشگاه همکار در سیستم اقساطی که روی آن کار کردم
     - value: کارشناسی ارشد
       label: مهندسی نرم‌افزار
 
@@ -34,21 +34,31 @@ explainer:
 
 proof_points:
   - slug: carbon-collateral-credit
-    title: اعتبار خرید با وثیقهٔ دارایی
+    title: قدرت خرید با پشتوانهٔ طلا، نقره و رمزارز
     companies: [Carbon OS]
     period: ۲۰۲۶ – اکنون
     role: کل سیستم اعتبار را از صفر تا صد طراحی کردم و ساختم.
     fact: "۴"
     fact_label: کارگزاری متصل شده
     mockup: credit
+    image: /assets/work/carbon-app.webp
+    image_w: 253
+    image_h: 315
+    image_alt: "اپ Carbon: پرداخت به فروشگاه هم‌زمان از کیف نقدی، کیف سرمایه‌گذاری و اعتبار ماهانه"
+    image_caption: "اپ Carbon — تصویر از سایت carbon.ir"
   - slug: gsmpay-bnpl
     title: خرید اقساطی (BNPL)
     companies: [GSMPay]
     period: ۲۰۲۴ – ۲۰۲۶
     role: هستهٔ اصلی فرایند وام را ساختم — ثبت درخواست، تأیید بانک، جدول اقساط و قرارداد.
     fact: بیش از ۷٬۰۰۰
-    fact_label: فروشگاه پذیرنده
+    fact_label: فروشگاه همکار
     mockup: installments
+    image: /assets/work/gsmpay-credit.webp
+    image_w: 358
+    image_h: 855
+    image_alt: "درخواست اعتبار در GSMPay: انتخاب مبلغ، دورهٔ ۱۲ یا ۲۴ ماهه و بانک، و دیدن مبلغ هر قسط"
+    image_caption: "درخواست اعتبار در GSMPay — تصویر از سایت gsmpay.ir"
   - slug: money-movement
     title: جلوگیری از پرداخت تکراری
     companies: [Carbon OS, GSMPay]
@@ -73,12 +83,12 @@ companies:
     name: Carbon
     url: https://carbon.ir
     position: Senior Software Engineer
-    note: پلتفرم مالی برای کسب‌وکارهای کوچک — پرداخت، کیف پول و اعتبار.
+    note: سیستم عامل مالی برای کسب‌وکارهای خُرد — پرداخت، کیف پول و قدرت خرید با طلا، نقره و رمزارز.
   GSMPay:
     name: GSMPay
     url: https://gsmpay.ir
     position: Back End Developer
-    note: خرید اقساطی (BNPL) در بیش از ۷٬۰۰۰ فروشگاه پذیرنده.
+    note: لندتک تخصصی حوزهٔ موبایل — خرید اقساطی موبایل و لوازم جانبی در بیش از ۷٬۰۰۰ فروشگاه همکار.
   Changino:
     name: Changino
     position: Back End Developer
@@ -137,7 +147,7 @@ ui:
     done: تمام — یک بار پرداخت شد و درست ثبت شد
   work_eyebrow: نمونه‌کارها
   work_heading: سه چیزی که ساختم، و کاری که برای آدم‌های واقعی کرد
-  work_note: تصویرهای گوشی طرح ساده‌ای برای نشان دادن ایده‌اند، نه اسکرین‌شات واقعی اپ.
+  work_note: تصویرهای محصول از سایت خود شرکت‌هاست؛ تصویر سوم طرح ساده‌ای از ایده است.
   read_more: خواندن ماجرای کامل
   wins_eyebrow: نتایج بیشتر
   wins_heading: موفقیت‌های کوچک‌تر در طول مسیر

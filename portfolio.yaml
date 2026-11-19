@@ -44,6 +44,11 @@ proof_points:
     fact: "4"
     fact_label: investment platforms connected
     mockup: credit
+    image: /assets/work/carbon-app.webp
+    image_w: 253
+    image_h: 315
+    image_alt: "Carbon app: paying a store from the cash wallet, the investment wallet and monthly credit in one payment"
+    image_caption: "The Carbon app — image from carbon.ir"
   - slug: gsmpay-bnpl
     title: Buy now, pay in monthly installments
     companies: [GSMPay]
@@ -52,6 +57,11 @@ proof_points:
     fact: 7,000+
     fact_label: partner stores
     mockup: installments
+    image: /assets/work/gsmpay-credit.webp
+    image_w: 358
+    image_h: 855
+    image_alt: "GSMPay credit request: choose an amount, a 12- or 24-month plan and a bank, then see each installment"
+    image_caption: "Credit request on GSMPay — image from gsmpay.ir"
   - slug: money-movement
     title: Making sure nobody is charged twice
     companies: [Carbon OS, GSMPay]
@@ -75,11 +85,11 @@ companies:
   Carbon OS:
     name: Carbon OS
     url: https://carbon.ir
-    note: A financial app for small businesses — payments, wallets and credit.
+    note: A financial operating system for small businesses — payments, wallets, and buying power backed by gold, silver and crypto.
   GSMPay:
     name: GSMPay
     url: https://gsmpay.ir
-    note: Buy now, pay later at 7,000+ partner stores.
+    note: A lendtech for the mobile phone market — phones and accessories in installments at 7,000+ partner stores.
   Changino:
     name: Changino
     note: Busy, high-traffic web apps. I made slow reports fast.
@@ -136,7 +146,7 @@ ui:
     done: Done — paid once, recorded correctly
   work_eyebrow: Selected work
   work_heading: Three things I built, and what they did for real people
-  work_note: The phone screens are simple drawings to show the idea — not real screenshots.
+  work_note: Product images come from the companies' own websites. The third one is a simple drawing of the idea.
   read_more: Read the full story
   wins_eyebrow: More results
   wins_heading: Smaller wins along the way

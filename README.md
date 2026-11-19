@@ -19,7 +19,7 @@ checks.py                 Resume and site gate used by CI
 
 ## Writing style
 
-The site is written for people who are not engineers (recruiters, founders, friends). Keep the main text free of jargon; put engineering detail under `## Technical details` in each Case Study, which renders as a closed section. The phone screens in `site/templates/_mockup.html.j2` are drawings, not screenshots, and are labelled as such. All page text, including button labels and the phone screens, lives under `ui:` in each `portfolio.yaml`, so English and Persian share the same templates.
+The site is written for people who are not engineers (recruiters, founders, friends). Keep the main text free of jargon; put engineering detail under `## Technical details` in each Case Study, which renders as a closed section. Projects with an `image` show a product image cropped from the company's own website (`site/static/assets/work/`), captioned with its source; the others fall back to the drawings in `site/templates/_mockup.html.j2`, which are labelled as drawings. All page text, including button labels and the phone screens, lives under `ui:` in each `portfolio.yaml`, so English and Persian share the same templates.
 
 ## Build locally
 
