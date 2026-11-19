@@ -1,40 +1,42 @@
 {# Simplified, made-up app screens that show what the customer sees. Not real screenshots. #}
-{% macro mockup(kind) %}
+{% macro mockup(kind, m) %}
 <div class="phone" aria-hidden="true">
   <div class="notch"></div>
 {% if kind == "credit" %}
-  <p class="ph-t">My savings</p>
+{% set t = m.credit %}
+  <p class="ph-t">{{ t.title }}</p>
   <ul class="assets">
-    <li><i class="c-gold"></i>Gold<b>120M</b></li>
-    <li><i class="c-fund"></i>Investment fund<b>80M</b></li>
-    <li><i class="c-crypto"></i>Crypto<b>40M</b></li>
+{% for a in t.assets %}
+    <li><i class="c-{{ a[0] }}"></i>{{ a[1] }}<b>{{ a[2] }}</b></li>
+{% endfor %}
   </ul>
   <div class="limit">
-    <span>You can spend now</span>
-    <strong>140,000,000 <small>IRR</small></strong>
+    <span>{{ t.spend }}</span>
+    <strong>{{ t.amount }} <small>{{ t.unit }}</small></strong>
     <div class="bar"><i style="width:58%"></i></div>
-    <em>Your savings stay invested</em>
+    <em>{{ t.stay }}</em>
   </div>
-  <span class="ph-btn">Buy with credit</span>
+  <span class="ph-btn">{{ t.button }}</span>
 {% elif kind == "installments" %}
-  <p class="ph-t">Checkout</p>
-  <div class="item"><span class="thumb"></span><div>New phone<small>48,000,000 IRR</small></div></div>
-  <p class="ph-s">Pay in 4 monthly installments</p>
+{% set t = m.installments %}
+  <p class="ph-t">{{ t.title }}</p>
+  <div class="item"><span class="thumb"></span><div>{{ t.item }}<small>{{ t.price }}</small></div></div>
+  <p class="ph-s">{{ t.plan }}</p>
   <ol class="plan">
-    <li class="done"><i>✓</i>Today<b>12M</b></li>
-    <li><i>2</i>Next month<b>12M</b></li>
-    <li><i>3</i>In 2 months<b>12M</b></li>
-    <li><i>4</i>In 3 months<b>12M</b></li>
+{% for row in t.rows %}
+    <li{% if loop.first %} class="done"{% endif %}><i>{{ "✓" if loop.first else loop.index | num }}</i>{{ row }}<b>{{ t.amount }}</b></li>
+{% endfor %}
   </ol>
-  <span class="ok-pill">✓ Approved by the bank</span>
+  <span class="ok-pill">{{ t.approved }}</span>
 {% else %}
-  <p class="ph-t">Payment</p>
-  <div class="taps"><span class="ph-btn">Pay 2,000,000</span><span class="tap">tap</span><span class="tap">tap</span></div>
+{% set t = m.once %}
+  <p class="ph-t">{{ t.title }}</p>
+  <div class="taps"><span class="ph-btn">{{ t.button }}</span><span class="tap">{{ t.tap }}</span><span class="tap">{{ t.tap }}</span></div>
   <ul class="receipts">
-    <li class="good"><i>✓</i><div>Receipt #A71<small>Paid</small></div></li>
-    <li class="dup"><i>↺</i><div>Receipt #A71 again<small>Already paid — ignored</small></div></li>
+    <li class="good"><i>✓</i><div>{{ t.paid }}<small>{{ t.paid_sub }}</small></div></li>
+    <li class="dup"><i>↺</i><div>{{ t.dup }}<small>{{ t.dup_sub }}</small></div></li>
   </ul>
-  <div class="once"><strong>Charged once</strong><span>Wallet: −2,000,000</span></div>
+  <div class="once"><strong>{{ t.result }}</strong><span>{{ t.wallet }}</span></div>
 {% endif %}
 </div>
 {% endmacro %}
@@ -47,3 +49,5 @@
 {% endif %}
 </svg>
 {% endmacro %}
+
+{% macro companies(keys, site) %}{% for k in keys %}{% set c = site.companies[k] %}{% if c.url is defined %}<a href="{{ c.url }}" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}{% if not loop.last %} + {% endif %}{% endfor %}{% endmacro %}

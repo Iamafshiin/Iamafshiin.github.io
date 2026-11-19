@@ -25,9 +25,17 @@ def split_sections(html: str) -> list[dict]:
     return sections
 
 
-def load_case_studies() -> list[dict]:
+LANGS = {"en": "", "fa": "fa"}
+FA_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
+
+
+def content_dir(lang: str) -> Path:
+    return ROOT / LANGS[lang]
+
+
+def load_case_studies(lang: str) -> list[dict]:
     studies = []
-    for path in sorted((ROOT / "case-studies").glob("*.md")):
+    for path in sorted((content_dir(lang) / "case-studies").glob("*.md")):
         _, front, body = path.read_text(encoding="utf-8").split("---", 2)
         meta = yaml.safe_load(front)
         html = markdown.markdown(body, extensions=["fenced_code"])
@@ -39,34 +47,38 @@ def load_case_studies() -> list[dict]:
     return studies
 
 
-def career(cv: dict, notes: dict) -> list[dict]:
+def load_portfolio(lang: str) -> dict:
+    base = load_yaml("portfolio.yaml")
+    if lang == "en":
+        return base
+    site = yaml.safe_load((content_dir(lang) / "portfolio.yaml").read_text(encoding="utf-8"))
+    site["site"] = {**base["site"], **site.get("site", {})}
+    return site
+
+
+def career(cv: dict, site: dict) -> list[dict]:
     rows = []
     for entry in cv["sections"]["experience"]:
         if "start_date" not in entry:
             continue
+        info = site["companies"].get(entry["company"], {})
         start = str(entry["start_date"])[:4]
-        end = "now" if entry["end_date"] == "present" else str(entry["end_date"])[:4]
+        current = entry["end_date"] == "present"
+        end = site["ui"]["now"] if current else str(entry["end_date"])[:4]
         rows.append(
             {
-                "company": entry["company"],
-                "position": entry["position"],
+                "key": entry["company"],
+                "company": info.get("name", entry["company"]),
+                "position": info.get("position", entry["position"]),
                 "years": f"{start} – {end}",
-                "note": notes.get(entry["company"], ""),
-                "current": end == "now",
+                "note": info.get("note", ""),
+                "current": current,
             }
         )
     return rows
 
 
-def build() -> None:
-    cv = load_yaml("cv.yaml")["cv"]
-    site = load_yaml("portfolio.yaml")
-    studies = load_case_studies()
-    slugs = {s["slug"] for s in studies}
-    missing = [p["slug"] for p in site["proof_points"] if p["slug"] not in slugs]
-    if missing:
-        sys.exit(f"Proof Point without a Case Study: {', '.join(missing)}")
-
+def make_env(lang: str) -> Environment:
     env = Environment(
         loader=FileSystemLoader(ROOT / "site" / "templates"),
         undefined=StrictUndefined,
@@ -74,29 +86,58 @@ def build() -> None:
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    ctx = {"cv": cv, "site": site, "studies": studies, "year": date.today().year}
+    env.filters["num"] = (lambda v: str(v).translate(FA_DIGITS)) if lang == "fa" else str
+    return env
+
+
+def build_lang(cv: dict, lang: str) -> int:
+    env = make_env(lang)
+    site = load_portfolio(lang)
+    studies = load_case_studies(lang)
+    slugs = {s["slug"] for s in studies}
+    missing = [p["slug"] for p in site["proof_points"] if p["slug"] not in slugs]
+    if missing:
+        sys.exit(f"[{lang}] Proof Point without a Case Study: {', '.join(missing)}")
+
+    root = f"/{LANGS[lang]}/" if LANGS[lang] else "/"
+    other_root = f"/{LANGS[site['ui']['other_lang']]}/".replace("//", "/")
+    out = OUT / LANGS[lang]
+    out.mkdir(parents=True, exist_ok=True)
+    ctx = {"cv": cv, "site": site, "ui": site["ui"], "studies": studies, "year": date.today().year, "root": root}
+
+    home = env.get_template("home.html.j2").render(**ctx, page="home", path=root, alt=other_root, career=career(cv, site))
+    (out / "index.html").write_text(home, encoding="utf-8")
+
+    for study in studies:
+        target = out / "case-studies" / study["slug"]
+        target.mkdir(parents=True)
+        path = f"{root}case-studies/{study['slug']}/"
+        alt = f"{other_root}case-studies/{study['slug']}/"
+        html = env.get_template("case-study.html.j2").render(**ctx, page="case", path=path, alt=alt, study=study)
+        (target / "index.html").write_text(html, encoding="utf-8")
+    return len(studies)
+
+
+def build() -> None:
+    cv = load_yaml("cv.yaml")["cv"]
 
     OUT.mkdir(exist_ok=True)
     for child in OUT.iterdir():
         shutil.rmtree(child) if child.is_dir() else child.unlink()
     shutil.copytree(ROOT / "site" / "static", OUT, dirs_exist_ok=True)
 
-    home = env.get_template("home.html.j2").render(**ctx, page="home", career=career(cv, site["career_notes"]))
-    (OUT / "index.html").write_text(home, encoding="utf-8")
+    counts = {lang: build_lang(cv, lang) for lang in LANGS}
 
-    for study in studies:
-        target = OUT / "case-studies" / study["slug"]
-        target.mkdir(parents=True)
-        html = env.get_template("case-study.html.j2").render(**ctx, page="case", study=study)
-        (target / "index.html").write_text(html, encoding="utf-8")
-
-    (OUT / "404.html").write_text(env.get_template("404.html.j2").render(**ctx, page="404"), encoding="utf-8")
-    sitemap = env.get_template("sitemap.xml.j2").render(**ctx, today=date.today().isoformat())
+    site = load_portfolio("en")
+    env = make_env("en")
+    ctx = {"cv": cv, "site": site, "ui": site["ui"], "studies": load_case_studies("en"), "year": date.today().year, "root": "/"}
+    (OUT / "404.html").write_text(env.get_template("404.html.j2").render(**ctx, page="404", path="/", alt="/fa/"), encoding="utf-8")
+    sitemap = env.get_template("sitemap.xml.j2").render(**ctx, langs=LANGS, today=date.today().isoformat())
     (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
     if PDF.exists():
         shutil.copy(PDF, OUT / site["site"]["resume_path"].lstrip("/"))
-    print(f"Built {OUT} with {len(studies)} Case Studies")
+    print(f"Built {OUT}: " + ", ".join(f"{lang} with {n} Case Studies" for lang, n in counts.items()))
 
 
 if __name__ == "__main__":

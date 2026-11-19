@@ -2,7 +2,7 @@
 order: 3
 title: Making sure nobody is charged twice
 summary: When a customer taps "Pay" twice, or the internet drops halfway through, the money must still move exactly once.
-company: Carbon OS · GSMPay
+companies: [Carbon OS, GSMPay]
 company_about: The same safety rules, used at both companies.
 period: 2024 – now
 role: I built the safety rules both companies use for wallet payments.

@@ -2,7 +2,7 @@
 order: 2
 title: Buy now, pay in monthly installments
 summary: At GSMPay, shoppers at 7,000+ partner stores take a product home today and pay for it over several months.
-company: GSMPay
+companies: [GSMPay]
 company_about: Buy now, pay later at 7,000+ partner stores.
 period: 2024 – 2026
 role: I built the core of the loan process — applying, bank approval, the payment schedule and the contract.

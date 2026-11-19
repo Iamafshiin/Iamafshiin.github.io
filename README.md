@@ -8,6 +8,8 @@ Source for <https://iamafshiin.github.io> and the Resume PDF. Both are generated
 cv.yaml                   Content Source: roles, skills, education (RenderCV format)
 portfolio.yaml            Content Source: site-only data, in plain language (hero, explainer, project cards, wins)
 case-studies/<slug>.md    one Case Study each: plain-language story + a collapsed "Technical details" section
+fa/portfolio.yaml         Persian (RTL) version of portfolio.yaml, served at /fa/
+fa/case-studies/<slug>.md Persian Case Studies; same slugs, Technical details kept in English
 navy/                     RenderCV theme for the Resume (must sit next to cv.yaml)
 site/templates/           Jinja2 templates: base, home, case-study, 404, sitemap
 site/static/              favicon, robots.txt, css, js, self-hosted fonts
@@ -17,7 +19,7 @@ checks.py                 Resume and site gate used by CI
 
 ## Writing style
 
-The site is written for people who are not engineers (recruiters, founders, friends). Keep the main text free of jargon; put engineering detail under `## Technical details` in each Case Study, which renders as a closed section. The phone screens in `site/templates/_mockup.html.j2` are drawings, not screenshots, and are labelled as such.
+The site is written for people who are not engineers (recruiters, founders, friends). Keep the main text free of jargon; put engineering detail under `## Technical details` in each Case Study, which renders as a closed section. The phone screens in `site/templates/_mockup.html.j2` are drawings, not screenshots, and are labelled as such. All page text, including button labels and the phone screens, lives under `ui:` in each `portfolio.yaml`, so English and Persian share the same templates.
 
 ## Build locally
 

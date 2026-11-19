@@ -1,5 +1,5 @@
 {% extends "base.html.j2" %}
-{% from "_mockup.html.j2" import mockup, icon %}
+{% from "_mockup.html.j2" import mockup, icon, companies %}
 {% block main %}
 <section class="wrap hero">
   <div class="hero-text">
@@ -7,8 +7,8 @@
     <h1>{{ site.hero.lead }}<span class="hl">{{ site.hero.highlight }}</span></h1>
     <p class="sub">{{ site.hero.sub }}</p>
     <div class="cta">
-      <a class="btn p" href="#work">See my work ↓</a>
-      <a class="btn s" href="#contact">Get in touch</a>
+      <a class="btn p" href="#work">{{ ui.see_work }}</a>
+      <a class="btn s" href="#contact">{{ ui.get_in_touch }}</a>
     </div>
     <ul class="facts">
 {% for f in site.hero.facts %}
@@ -17,18 +17,17 @@
     </ul>
   </div>
   <div class="hero-art">
-    <figure class="flow" aria-label="What happens after you tap Pay">
-      <p class="flow-top"><span class="ph-btn">You tap “Pay”</span></p>
+    <figure class="flow" aria-label="{{ ui.flow.aria }}">
+      <p class="flow-top"><span class="ph-btn">{{ ui.flow.tap }}</span></p>
       <div class="flow-mid">
-        <p class="flow-label">Behind the scenes — my part</p>
+        <p class="flow-label">{{ ui.flow.label }}</p>
         <ol>
-          <li><i>✓</i>Is there enough money?</li>
-          <li><i>✓</i>Has this payment already happened?</li>
-          <li><i>✓</i>Check with the bank when needed</li>
-          <li><i>✓</i>Record it on both sides of the books</li>
+{% for step in ui.flow.steps %}
+          <li><i>✓</i>{{ step }}</li>
+{% endfor %}
         </ol>
       </div>
-      <p class="flow-end">Done — paid once, recorded correctly</p>
+      <p class="flow-end">{{ ui.flow.done }}</p>
     </figure>
   </div>
 </section>
@@ -50,19 +49,19 @@
 </section>
 
 <section class="wrap sec" id="work" aria-labelledby="work-h">
-  <p class="eyebrow">Selected work</p>
-  <h2 id="work-h">Three things I built, and what they did for real people</h2>
-  <p class="note">The phone screens are simple drawings to show the idea — not real screenshots.</p>
+  <p class="eyebrow">{{ ui.work_eyebrow }}</p>
+  <h2 id="work-h">{{ ui.work_heading }}</h2>
+  <p class="note">{{ ui.work_note }}</p>
   <div class="projects">
 {% for p in site.proof_points %}
     <article class="project">
-      <div class="project-art">{{ mockup(p.mockup) }}</div>
+      <div class="project-art">{{ mockup(p.mockup, ui.mock) }}</div>
       <div class="project-text">
-        <p class="meta">{{ p.company }} · {{ p.period }}</p>
-        <h3><a href="/case-studies/{{ p.slug }}/">{{ p.title }}</a></h3>
+        <p class="meta">{{ companies(p.companies, site) }} · {{ p.period }}</p>
+        <h3><a href="{{ root }}case-studies/{{ p.slug }}/">{{ p.title }}</a></h3>
         <p class="role">{{ p.role }}</p>
         <p class="fact"><b>{{ p.fact }}</b><span>{{ p.fact_label }}</span></p>
-        <a class="more" href="/case-studies/{{ p.slug }}/">Read the full story <span aria-hidden="true">→</span></a>
+        <a class="more" href="{{ root }}case-studies/{{ p.slug }}/">{{ ui.read_more }} <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </article>
 {% endfor %}
@@ -70,8 +69,8 @@
 </section>
 
 <section class="wrap sec" aria-labelledby="wins-h">
-  <p class="eyebrow">More results</p>
-  <h2 id="wins-h">Smaller wins along the way</h2>
+  <p class="eyebrow">{{ ui.wins_eyebrow }}</p>
+  <h2 id="wins-h">{{ ui.wins_heading }}</h2>
   <ul class="wins">
 {% for w in site.wins %}
     <li><b>{{ w.value }}</b><p>{{ w.text }}</p></li>
@@ -81,24 +80,24 @@
 
 <section class="wrap sec two" id="experience" aria-labelledby="exp-h">
   <div>
-    <p class="eyebrow">Experience</p>
-    <h2 id="exp-h">Where I've worked</h2>
+    <p class="eyebrow">{{ ui.exp_eyebrow }}</p>
+    <h2 id="exp-h">{{ ui.exp_heading }}</h2>
     <ol class="career">
 {% for c in career %}
       <li{% if c.current %} class="now"{% endif %}>
-        <span class="yrs">{{ c.years }}</span>
-        <div><p class="who">{{ c.company }} — {{ c.position }}</p><p>{{ c.note }}</p></div>
+        <span class="yrs">{{ c.years | num }}</span>
+        <div><p class="who">{{ companies([c.key], site) }} — {{ c.position }}</p><p>{{ c.note }}</p></div>
       </li>
 {% endfor %}
     </ol>
-    <a class="more" href="{{ site.site.resume_path }}">Download the full resume (PDF) <span aria-hidden="true">→</span></a>
+    <a class="more" href="{{ site.site.resume_path }}">{{ ui.resume_link }} <span class="arr" aria-hidden="true">→</span></a>
   </div>
   <div>
-    <p class="eyebrow">Education & research</p>
-    <h2>Beyond the day job</h2>
+    <p class="eyebrow">{{ ui.edu_eyebrow }}</p>
+    <h2>{{ ui.edu_heading }}</h2>
     <ul class="edu">
-{% for e in cv.sections.education %}
-      <li><b>{{ e.degree }}, {{ e.area }}</b> — {{ e.institution }}, {{ e.years }}</li>
+{% for e in site.education %}
+      <li><b>{{ e.title }}</b> — {{ e.place }}</li>
 {% endfor %}
     </ul>
     <div class="os">
@@ -107,7 +106,7 @@
         <small>{{ o.kicker }}</small>
         <h3>{{ o.title }}</h3>
         <p>{{ o.text }}</p>
-        <p class="links"><a href="{{ o.url }}" rel="noopener">{{ o.url_label }} →</a><a href="{{ o.repo }}" rel="noopener">{{ o.repo_label }} →</a></p>
+        <p class="links"><a href="{{ o.url }}" rel="noopener">{{ o.url_label }} <span class="arr" aria-hidden="true">→</span></a><a href="{{ o.repo }}" rel="noopener">{{ o.repo_label }} <span class="arr" aria-hidden="true">→</span></a></p>
       </article>
 {% endfor %}
     </div>
@@ -118,8 +117,8 @@
   <div class="wrap">
     <h2 id="contact-h">{{ site.contact.heading }}</h2>
     <p>{{ site.contact.text }}</p>
-    <a class="btn p big" href="mailto:{{ cv.email }}">{{ cv.email }}</a>
-    <p class="links"><a href="{{ site.site.linkedin }}" rel="me noopener">LinkedIn</a><a href="{{ site.site.resume_path }}">Resume (PDF)</a><a href="{{ site.site.github }}" rel="me noopener">GitHub</a></p>
+    <a class="btn p big" href="mailto:{{ cv.email }}" dir="ltr">{{ cv.email }}</a>
+    <p class="links"><a href="{{ site.site.linkedin }}" rel="me noopener">LinkedIn</a><a href="{{ site.site.resume_path }}">{{ ui.resume }}</a><a href="{{ site.site.github }}" rel="me noopener">GitHub</a></p>
   </div>
 </section>
 {% endblock %}

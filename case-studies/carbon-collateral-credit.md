@@ -2,7 +2,7 @@
 order: 1
 title: Borrow money without selling your savings
 summary: At Carbon, people who own gold, silver, crypto or investment funds can use them as a guarantee and get spending money right away — without selling anything.
-company: Carbon OS
+companies: [Carbon OS]
 company_about: A financial app for small businesses — payments, wallets and credit.
 period: 2026 – now
 role: I designed and built the whole credit system, from start to finish.
