@@ -8,9 +8,9 @@ period: 2024 – 2026
 role: I built the core of the loan process — applying, bank approval, the payment schedule and the contract.
 mockup: installments
 image: /assets/work/gsmpay-credit.webp
-image_w: 358
-image_h: 855
-image_alt: "GSMPay credit request: choose an amount, a 12- or 24-month plan and a bank, then see each installment"
+image_w: 600
+image_h: 1250
+image_alt: "GSMPay credit request: choose a 12- or 24-month plan and a lending bank, then see each installment and the total to repay"
 image_caption: "Credit request on GSMPay — image from gsmpay.ir"
 stats:
   - value: 7,000+
