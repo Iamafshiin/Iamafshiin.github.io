@@ -8,9 +8,9 @@ period: 2026 – now
 role: I designed and built the whole credit system, from start to finish.
 mockup: credit
 image: /assets/work/carbon-app.webp
-image_w: 253
-image_h: 315
-image_alt: "Carbon app: paying a store from the cash wallet, the investment wallet and monthly credit in one payment"
+image_w: 600
+image_h: 1133
+image_alt: "Carbon app: paying a store in one payment from the cash wallet, the gold-and-silver buying-power wallet and pooled credit from lenders"
 image_caption: "The Carbon app — image from carbon.ir"
 stats:
   - value: "4"
